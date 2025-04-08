@@ -28,7 +28,7 @@ const Navigation = () => {
           <img
             src={logo}
             alt="Description"
-            style={{ width: "70px", height: "70px" }}
+            style={{ width: "90px", height: "90px" }}
           />
         </div>
 
@@ -52,7 +52,7 @@ const Navigation = () => {
           <Button
             sx={{
               width: "100%",
-              borderRadius: "20px",
+              borderRadius: "30px",
               py: "10px",
               bgcolor: "#1e88e5",
             }}
