@@ -9,109 +9,157 @@ import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
-
+import ProfileModel from './profileModel';
 
 const Profile = () => {
-
     const [tabValue,setTabValue] = useState("1");
-    const navigate=useNavigate();
-    const handleBack=()=>navigate(-1);
-    const handleOpenProfile=()=>{
-        console.log("Open profile model")
+    const navigate = useNavigate();
+    const handleBack = () => navigate(-1);
+    const [openProfileModal,setOpenProfileModal] = useState(false);
+    const handleOpenProfile = () => setOpenProfileModal(true);
+    const handleClose = () => setOpenProfileModal(false);
+    const handleflollowUser = () => {
+        console.log("follow user")
     }
-    const handleflollowUser=()=>{
-        console.log("folow user")
-    }
-    const handleTabChange=(event, newValue)=>{
+    const handleTabChange = (event, newValue) => {
         setTabValue(newValue)
-
-        if(newValue === 3 )
-        {
-            console.log("tab3")
-        }
-        else if(newValue === 1)
-        {
-            console.log("tab1")
-        }
     }
     
-  return (
-    <div>
-      <section className={'z-50 flex items-center sticky top-0 bg-opacity-95'}>
-        <KeyboardBackspaceIcon className='cursor-pointer' onClick={handleBack}/>
-        <h1 className='py-5 text-x1 font-bold opacity-90 ml-5'>Test this</h1>
-      </section>
-
-      <section>
-        <img className='w-[100%] h-[15rem] object-cover'src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaj8dygYNAVcMTFuIJRkAqK_n_PVoL_n4P4g&s" alt=""/>
-      </section>
-
-      <section className='pl-6'>
-        <div className='flex jutify-between items-start mt-5 h-[5rem]'>
-            <Avatar className='transform -translate-y-12' alt='Test with me' sx={{width:"5rem",height:"5rem",border:"4px solid white"}}/>
-
-            {true?<Button variant='contained' sx={{borderRadius:"20px"}} onClick={handleOpenProfile}>
-                Edit profile
-            </Button>: <Button variant='contained' sx={{borderRadius:"20px"}} onClick={handleflollowUser}>
-                {true?"Follow":"Unfollow"}
-            </Button>}
-        </div>
-        <div>
-            <div className='flex items-center'>
-                <h1 className='font-bold text-lg'>Test name</h1>
-            </div>
-            <h1 className='text-gray-500'>@code nmae</h1>
-        </div>
-
-        <div className='mt-2 space-y-3'>
-            <p>Hwllo this is testings qwuis spqwospqs siohsioqhws</p>
-
-            <div className='py-1 flex space-x-5'>
-                <div className='felx item-center text-gray-500'>
-                    <BusinessCenterIcon/>
-                    <p className='ml-2'>Education</p>
+    return (
+        <div className='min-h-screen'>
+            <section className='sticky top-0 z-50 bg-white bg-opacity-95 backdrop-blur-sm border-b border-gray-100'>
+                <div className='flex items-center px-4 py-3 space-x-4'>
+                    <KeyboardBackspaceIcon className='cursor-pointer' onClick={handleBack}/>
+                    <div>
+                        <h1 className='text-xl font-bold'>Test name</h1>
+                        <p className='text-sm text-gray-500'>0 posts</p>
+                    </div>
                 </div>
-                <div className='felx item-center text-gray-500'>
-                    <LocationOnIcon/>
-                    <p className='ml-2'>From</p>
-                </div>
-            </div>
+            </section>
 
-            <div className='flex items-center space-x-5'>
-                <div className='flex items-center space-x-1 font-semibold'>
-                    <span>590</span>
-                    <span className='text-gray-500'>Followers</span>
+            <section>
+                <div className='h-[200px] relative bg-gray-100'>
+                    <img 
+                        className='w-full h-full object-cover'
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaj8dygYNAVcMTFuIJRkAqK_n_PVoL_n4P4g&s" 
+                        alt=""
+                    />
                 </div>
+            </section>
 
-                <div className='flex items-center space-x-1 font-semibold'>
-                    <span>50</span>
-                    <span className='text-gray-500'>Following</span>
+            <section className='px-6'>
+                <div className='flex justify-between items-start relative'>
+                    <Avatar 
+                        className='transform -translate-y-1/2 border-4 border-white'
+                        alt='Test name' 
+                        sx={{width:"120px", height:"120px"}}
+                    />
+                    <div className=''>
+                    {true ? (
+                        <Button 
+                            variant='contained' 
+                            sx={{
+                                borderRadius: "20px",
+                                marginTop: 2,
+                            }}
+                            onClick={handleOpenProfile}
+                        >
+                            Edit profile
+                        </Button>
+                    ) : (
+                        <Button 
+                            variant='contained' 
+                            sx={{
+                                borderRadius: "20px",
+                                marginTop: 2, 
+                            }}
+                            onClick={handleflollowUser}
+                        >
+                            {true ? "Follow" : "Unfollow"}
+                        </Button>
+                    )}
+                    </div>
                 </div>
-            </div>
+                <div>
+
+                <div className='flex ietms-center mt-[-40px]'>
+                    <h1 className='font-bold text-xl'>Test name</h1>
+                </div>
+                <h2 className='text-gray-500 text-left'>@code_name</h2>
+                </div>
+                <div className='mt-4 space-y-4'>
+                <p className="text-left">Hello, tAh got it — if your YouTube tutorial guy is using STS, then it totally makes sense for you to use it too — especially if you're following along step-by-step and want things to look the same on your screen</p>
+
+                    <div className='flex space-x-6'>
+                        <div className='flex items-center text-gray-500 space-x-1'>
+                            <BusinessCenterIcon fontSize="small"/>
+                            <span>Education</span>
+                        </div>
+                        <div className='flex items-center text-gray-500 space-x-1'>
+                            <LocationOnIcon fontSize="small"/>
+                            <span>From</span>
+                        </div>
+                    </div>
+
+                    <div className='flex space-x-6'>
+                        <div className='flex items-center space-x-1'>
+                            <span className='font-semibold'>590</span>
+                            <span className='text-gray-500'>Following</span>
+                        </div>
+                        <div className='flex items-center space-x-1'>
+                            <span className='font-semibold'>50</span>
+                            <span className='text-gray-500'>Followers</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+      
+            <section className='mt-4 border-b border-gray-100'>
+                <Box sx={{ width: '100%' }}>
+                    <TabContext value={tabValue}>
+                        <Box>
+                            <TabList 
+                                onChange={handleTabChange} 
+                                aria-label="profile tabs"
+                                variant="fullWidth"
+                                sx={{
+                                    '& .MuiTab-root': {
+                                        textTransform: 'none',
+                                        fontWeight: 'bold',
+                                        fontSize: '15px',
+                                        color: 'rgb(83, 100, 113)',
+                                        '&.Mui-selected': {
+                                            color: 'rgb(15, 20, 25)',
+                                        }
+                                    },
+                                    '& .MuiTabs-indicator': {
+                                        backgroundColor: 'rgb(29, 155, 240)',
+                                        height: '4px',
+                                        borderRadius: '2px'
+                                    }
+                                }}
+                            >
+                                <Tab label="Posts" value="1" />
+                                <Tab label="Replies" value="2" />
+                                <Tab label="Media" value="3" />
+                            </TabList>
+                        </Box>
+                        <TabPanel value="1" sx={{ px: 3 }}>
+                            {/* Posts content */}
+                        </TabPanel>
+                        <TabPanel value="2" sx={{ px: 3 }}>
+                            {/* Replies content */}
+                        </TabPanel>
+                        <TabPanel value="3" sx={{ px: 3 }}>
+                            {/* Media content */}
+                        </TabPanel>
+                    </TabContext>
+                </Box>
+            </section>
+
+            <ProfileModel handleClose={handleClose} open={openProfileModal}/>
         </div>
-      </section>
-      <section>
-        <div>
-      <Box sx={{ width: '100%', typography: 'body1' }}>
-      <TabContext value={tabValue}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <TabList onChange={handleTabChange} aria-label="lab API tabs example">
-            <Tab label="Posts" value="1" />
-            <Tab label="Test 1" value="2" />
-            <Tab label="Test 2" value="3" />
-          </TabList>
-        </Box>
-        <TabPanel value="1">
-           {/* {[1,1,1,1]}.map(item)=><Vishwas/>*/}
-        </TabPanel>
-        <TabPanel value="2">Test 1</TabPanel>
-        <TabPanel value="3">Test 2</TabPanel>
-      </TabContext>
-        </Box>
-        </div>
-      </section>
-    </div>
-  )
+    )
 }
 
 export default Profile

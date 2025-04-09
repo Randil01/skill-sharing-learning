@@ -1,5 +1,4 @@
 import React from 'react';
-import { Grid } from '@mui/material';
 import Navigation from '../navigation/navigation';
 import HomeSection from '../homeSection/homeSection';
 import Right from '../search/right'
@@ -8,25 +7,28 @@ import { Route, Routes } from 'react-router-dom';
 
 const Homepage = () => {
   return (
-    <Grid container xs={12} className='px-5 lg:px-36 justify-between'>
+    <div className='min-h-screen bg-white'>
+      <div className='flex w-full'>
+        {/* Left Navigation Section */}
+        <div className='w-[275px] border-r border-gray-100 ml-[50px]'>
+          <Navigation />
+        </div>
 
-      <Grid item xs={0} lg={3} className='px-2 lg:box realtive '>
-        <Navigation/>
-      </Grid>
+        {/* Main Content Section */}
+        <div className='flex-1 min-h-screen border-r border-gray-100 max-w-[600px]'>
+          <Routes>
+            <Route path="/" element={<HomeSection />} />
+            <Route path="/profile/:id" element={<Profile />} />
+          </Routes>
+        </div>
 
-      <Grid item xs={12} lg={6} className='px-2 lg:box realtive'>
-        <Routes>
-            <Route path='/' element={<HomeSection/>}/>
-            <Route path='/profile/:id' element={<Profile/>}/>
-        </Routes>
-      </Grid>
-
-      <Grid item xs={0} lg={3} className='px-2 lg:box realtive'>
-        <Right/>
-      </Grid>
-
-    </Grid>
-  )
+        {/* Right Section */}
+        <div className='flex-1 max-w-[350px] pl-8 mr-[15px]'>
+          <Right />
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default Homepage;
