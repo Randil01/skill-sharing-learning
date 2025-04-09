@@ -22,7 +22,7 @@ const Navigation = () => {
   }
 
   return (
-    <div className="h-screen sticky top-0">
+    <div className="h-full">
       <div>
         <div className="py-5">
           <img
@@ -35,6 +35,7 @@ const Navigation = () => {
         <div className="space-y-6">
           {navigationMenue.map((item) => (
             <div
+              key={item.tittle}
               className="cursor-pointer flex space-x-3 items-center"
               onClick={() =>
                 item.tittle === "Profile"
@@ -48,10 +49,10 @@ const Navigation = () => {
           ))}
         </div>
 
-        <div className="py-10">
+        <div className="py-10 ml-[-90px]">
           <Button
             sx={{
-              width: "100%",
+              width: "200px",
               borderRadius: "30px",
               py: "10px",
               bgcolor: "#1e88e5",
@@ -61,37 +62,38 @@ const Navigation = () => {
             Post your idea
           </Button>
         </div>
-      </div>
-      <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-3">
-          <Avatar
-            alt="username"
-            src="https://lh3.googleusercontent.com/ogw/AF2bZyg7pm6HgBOykIariQMy7GfONtoFonwYHbQDTgdu4lcdre0=s64-c-mo"
-          />
-          <div>
-            <span>Malik Akthar</span>
-          </div>
 
-          <Button
-            id="basic-button"
-            aria-controls={open ? "basic-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
-            onClick={handleClick}
-          >
-            <MoreHorizIcon />
-          </Button>
-          <Menu
-            id="basic-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              "aria-labelledby": "basic-button",
-            }}
-          >
-            <MenuItem onClick={handleLogout}>Logout</MenuItem>
-          </Menu>
+        <div className="flex items-center justify-between mt-8">
+          <div className="flex items-center space-x-3">
+            <Avatar
+              alt="username"
+              src="https://lh3.googleusercontent.com/ogw/AF2bZyg7pm6HgBOykIariQMy7GfONtoFonwYHbQDTgdu4lcdre0=s64-c-mo"
+            />
+            <div>
+              <span>Malik Akthar</span>
+            </div>
+
+            <Button
+              id="basic-button"
+              aria-controls={open ? "basic-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+              onClick={handleClick}
+            >
+              <MoreHorizIcon />
+            </Button>
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+                "aria-labelledby": "basic-button",
+              }}
+            >
+              <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            </Menu>
+          </div>
         </div>
       </div>
     </div>
