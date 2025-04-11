@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-const ProgressForm = ({ onSubmit, initialData, isEditing }) => {
+const ProgressForm = ({ onSubmit, initialData, isEditing, onCancel }) => {
   const [formData, setFormData] = useState({
     title: '',
     skill: '',
@@ -38,76 +39,98 @@ const ProgressForm = ({ onSubmit, initialData, isEditing }) => {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
-      <h2 className="text-xl font-semibold mb-4">
-        {isEditing ? 'Edit Progress Update' : 'Create Progress Update'}
-      </h2>
+    <div className="bg-white p-6 rounded-xl shadow-lg max-w-2xl mx-auto border border-gray-100">
+      <div className="flex items-center mb-6">
+        <button
+          onClick={onCancel}
+          className="text-gray-500 hover:text-gray-700 mr-3 transition-colors duration-200"
+        >
+          <ArrowBackIcon />
+        </button>
+        <h2 className="text-xl font-semibold text-gray-800">
+          {isEditing ? 'Edit Progress Update' : 'Create Progress Update'}
+        </h2>
+      </div>
       
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Title</label>
+        <div className="flex items-center justify-center gap-4">
+          <label className="w-24 text-sm font-medium text-gray-700 text-center">Title:</label>
           <input
             type="text"
             name="title"
             value={formData.title}
             onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            className="flex-1 rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm transition-colors duration-200"
             required
+            placeholder="Enter a title for your progress update"
           />
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Skill</label>
+        <div className="flex items-center justify-center gap-4">
+          <label className="w-24 text-sm font-medium text-gray-700 text-center">Skill:</label>
           <input
             type="text"
             name="skill"
             value={formData.skill}
             onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            className="flex-1 rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm transition-colors duration-200"
             required
+            placeholder="What skill are you working on?"
           />
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Progress</label>
+        <div className="flex justify-center gap-4">
+          <label className="w-24 text-sm font-medium text-gray-700 text-center pt-2">Progress:</label>
           <textarea
             name="progress"
             value={formData.progress}
             onChange={handleChange}
             rows="3"
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            className="flex-1 rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm transition-colors duration-200"
             required
+            placeholder="Describe your progress..."
           />
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Challenges Faced</label>
+        <div className="flex justify-center gap-4">
+          <label className="w-24 text-sm font-medium text-gray-700 text-center pt-2">Challenges:</label>
           <textarea
             name="challenges"
             value={formData.challenges}
             onChange={handleChange}
             rows="2"
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            className="flex-1 rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm transition-colors duration-200"
+            placeholder="What challenges did you encounter?"
           />
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Next Steps</label>
+        <div className="flex justify-center gap-4">
+          <label className="w-24 text-sm font-medium text-gray-700 text-center pt-2">Next Steps:</label>
           <textarea
             name="nextSteps"
             value={formData.nextSteps}
             onChange={handleChange}
             rows="2"
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            className="flex-1 rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm transition-colors duration-200"
+            placeholder="What are your next goals?"
           />
         </div>
 
-        <button
-          type="submit"
-          className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-        >
-          {isEditing ? 'Update Progress' : 'Create Progress Update'}
-        </button>
+        <div className="flex space-x-4 pt-4">
+          <button
+            type="button"
+            onClick={onCancel}
+            className="flex-1 bg-gradient-to-b from-gray-100 to-gray-200 text-gray-700 px-4 py-2.5 rounded-lg text-sm font-medium shadow-[0_4px_0_0_rgba(0,0,0,0.1)] hover:shadow-[0_2px_0_0_rgba(0,0,0,0.1)] hover:translate-y-1 transition-all duration-200 active:shadow-none active:translate-y-2"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            className="flex-1 bg-gradient-to-b from-blue-500 to-blue-600 text-white px-4 py-2.5 rounded-lg text-sm font-medium shadow-[0_4px_0_0_rgba(0,0,0,0.2)] hover:shadow-[0_2px_0_0_rgba(0,0,0,0.2)] hover:translate-y-1 transition-all duration-200 active:shadow-none active:translate-y-2"
+          >
+            {isEditing ? 'Update Progress' : 'Create Progress Update'}
+          </button>
+        </div>
       </form>
     </div>
   );
