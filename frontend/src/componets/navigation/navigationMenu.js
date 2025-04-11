@@ -5,6 +5,7 @@ import MessageIcon from '@mui/icons-material/Message';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import GroupIcon from '@mui/icons-material/Group';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 
 export const navigationMenue=[
     {
@@ -36,6 +37,11 @@ export const navigationMenue=[
         tittle:"Groups",
         icon:<GroupIcon/>,
         path:"/home"
+    },
+    {
+        tittle:"Progress",
+        icon:<TrendingUpIcon/>,
+        path:"/progress"
     },
     {
         tittle:"Profile",
