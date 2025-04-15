@@ -9,8 +9,7 @@ import com.example.backend.modal.User;
 
 //user update edit delete
 public interface UserRepository extends JpaRepository<User, Long> {
-    
-    
+
     public User findByEmail(String email);
 
     @Query("SELECT DISTINCT u FROM User u WHERE u.fullName LIKE %:query% OR u.email LIKE %:query%")
