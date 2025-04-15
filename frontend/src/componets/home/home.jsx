@@ -4,6 +4,7 @@ import HomeSection from '../homeSection/homeSection';
 import Right from '../search/right'
 import Profile from '../profile/profile'
 import { Route, Routes } from 'react-router-dom';
+import Authentication from '../authentication/Authentication';
 
 const Homepage = () => {
   return (
@@ -17,7 +18,8 @@ const Homepage = () => {
         {/* Main Content Section */}
         <div className='flex-1 min-h-screen border-r border-gray-100 max-w-[600px]'>
           <Routes>
-            <Route path="/" element={<HomeSection />} />
+            <Route path="/" element={<Authentication/>} />
+            <Route path="/home" element={<HomeSection />} />
             <Route path="/profile/:id" element={<Profile />} />
           </Routes>
         </div>

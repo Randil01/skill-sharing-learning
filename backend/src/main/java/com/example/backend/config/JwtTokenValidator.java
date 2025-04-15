@@ -32,7 +32,7 @@ public class JwtTokenValidator extends OncePerRequestFilter{
         
         String jwt = request.getHeader(JwtConstant.JWT_HEADER);
 
-        //Beare Jwt
+        //Bearer Jwt
 
         if(jwt != null){
             jwt=jwt.substring(7);
@@ -49,7 +49,6 @@ public class JwtTokenValidator extends OncePerRequestFilter{
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             } catch (Exception e) {
-                // TODO: handle exception
                 throw new BadCredentialsException("Invalid token");
             }
 
