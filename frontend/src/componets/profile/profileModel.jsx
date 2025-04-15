@@ -24,6 +24,7 @@ const style = {
 export default function ProfileModel({open,handleClose}) {
   //const [open, setOpen] = React.useState(false);
   const [uploding,setUploding] = React.useState(false);
+  //const dispatch = useDispach();
 
 
   const handleSubmit=(values)=>{
