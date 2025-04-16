@@ -3,6 +3,7 @@ import Navigation from '../navigation/navigation';
 import HomeSection from '../homeSection/homeSection';
 import Right from '../search/right'
 import Profile from '../profile/profile'
+import Progress from '../progress/Progress';
 import { Route, Routes } from 'react-router-dom';
 import Authentication from '../authentication/Authentication';
 
@@ -21,6 +22,7 @@ const Homepage = () => {
             <Route path="/" element={<Authentication/>} />
             <Route path="/home" element={<HomeSection />} />
             <Route path="/profile/:id" element={<Profile />} />
+            <Route path="/progress" element={<Progress />} />
           </Routes>
         </div>
 
