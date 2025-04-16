@@ -44,25 +44,25 @@ const ProgressList = ({ updates, onEdit, onDelete }) => {
                 </div>
               </div>
               
-              <div className="flex items-center gap-16 mb-2">
+              <div className="flex items-center gap-2 mb-2">
                 <span className="text-sm font-medium text-gray-700">Skill:</span>
                 <span>{update.skill}</span>
               </div>
               
-              <div className="flex items-center gap-9 mb-2">
+              <div className="flex gap-2 mb-2">
                 <span className="text-sm font-medium text-gray-700">Progress:</span>
                 <span>{update.progress}</span>
               </div>
               
               {update.challenges && (
-                <div className="flex items-center gap-6 mb-2">
+                <div className="flex gap-2 mb-2">
                   <span className="text-sm font-medium text-gray-700">Challenges:</span>
                   <span>{update.challenges}</span>
                 </div>
               )}
               
               {update.nextSteps && (
-                <div className="flex items-center gap-6">
+                <div className="flex gap-2">
                   <span className="text-sm font-medium text-gray-700">Next Steps:</span>
                   <span>{update.nextSteps}</span>
                 </div>
