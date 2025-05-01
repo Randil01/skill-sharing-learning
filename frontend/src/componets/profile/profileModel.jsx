@@ -1,11 +1,14 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useFormik } from 'formik';
 import CloseIcon from '@mui/icons-material/Close';
 import { IconButton, TextField, Avatar } from '@mui/material';
+import { updateUserProfile } from '../../Store/Auth/Action';
+import { useDispatch } from 'react-redux';
+import { useSelector} from "react-redux";
+import { uplodToCloudnary } from '../Utills/uplodToCloudnary';
 
 const style = {
   position: 'absolute',
@@ -24,11 +27,15 @@ const style = {
 export default function ProfileModel({open,handleClose}) {
   //const [open, setOpen] = React.useState(false);
   const [uploding,setUploding] = React.useState(false);
-  //const dispatch = useDispach();
+  const dispatch = useDispatch();
+  const [selectedImage,setSelectedImage] = React.useState("");
+  const {auth} = useSelector(store=>store)
 
 
   const handleSubmit=(values)=>{
+    dispatch(updateUserProfile(values))
     console.log("submited",values);
+    setSelectedImage("")
   }
   const formik = useFormik({
     initialValues:{
@@ -42,11 +49,12 @@ export default function ProfileModel({open,handleClose}) {
     onSubmit:handleSubmit
   })
 
-  const handleImageChnage=(event)=>{
+  const handleImageChnage= async (event)=>{
     setUploding(true);
     const {name} = event.target
-    const file = event.target.files[0];
+    const file = await uplodToCloudnary(event.target.files[0]);
     formik.setFieldValue(name,file);
+    setSelectedImage(file)
     setUploding(false);
   }
 
@@ -87,7 +95,7 @@ export default function ProfileModel({open,handleClose}) {
 
                   <div className='w-full transform -translate-y-14 ml-4 h-[6rem]'>
                     <div className='relative'>
-                        <Avatar sx={{width:"7rem",height:"7rem", border:"4px solid white"}} src='type="file"'/>
+                        <Avatar sx={{width:"7rem",height:"7rem", border:"4px solid white"}} src={selectedImage || auth.user?.profilepic}/>
 
                         <input 
                         type="file"
@@ -132,6 +140,22 @@ export default function ProfileModel({open,handleClose}) {
                     onChange={formik.handleChange}
                     error={formik.touched.bio && Boolean(formik.errors.bio)}
                     helperText={formik.touched.bio && formik.errors.bio}/>
+
+<TextField
+  fullWidth
+  id="birthday"
+  name="birthday"
+  label="Birthday"
+  type="date"
+  value={formik.values.birthday}
+  onChange={formik.handleChange}
+  error={formik.touched.birthday && Boolean(formik.errors.birthday)}
+  helperText={formik.touched.birthday && formik.errors.birthday}
+  InputLabelProps={{
+    shrink: true, 
+  }}
+/>
+
 
                     <div className='my-3'>
                       <p className='text-lg'>Birth date . Edit</p>

@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Avatar, Button } from '@mui/material';
-import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
+import CakeIcon from '@mui/icons-material/Cake';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
@@ -10,6 +10,8 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import ProfileModel from './profileModel';
+import { useDispatch, useSelector} from "react-redux";
+import { findUserById, followUserAction } from '../../Store/Auth/Action';
 
 const Profile = () => {
     const [tabValue,setTabValue] = useState("1");
@@ -18,12 +20,21 @@ const Profile = () => {
     const [openProfileModal,setOpenProfileModal] = useState(false);
     const handleOpenProfile = () => setOpenProfileModal(true);
     const handleClose = () => setOpenProfileModal(false);
+    const {auth} = useSelector(store=>store);
+    const dispatch = useDispatch();
+    const {id} = useParams();
+
     const handleflollowUser = () => {
+        dispatch(followUserAction(id))
         console.log("follow user")
     }
     const handleTabChange = (event, newValue) => {
         setTabValue(newValue)
     }
+
+    useEffect(()=>{
+        dispatch(findUserById(id))
+    },[id])
     
     return (
         <div className='min-h-screen'>
@@ -31,8 +42,8 @@ const Profile = () => {
                 <div className='flex items-center px-4 py-3 space-x-4'>
                     <KeyboardBackspaceIcon className='cursor-pointer' onClick={handleBack}/>
                     <div>
-                        <h1 className='text-xl font-bold'>Test name</h1>
-                        <p className='text-sm text-gray-500'>0 posts</p>
+                        <h1 className='text-xl font-bold'>{auth.findUser?.fullName}</h1>
+                        <p className='text-sm text-gray-500'>Posts</p>
                     </div>
                 </div>
             </section>
@@ -41,7 +52,7 @@ const Profile = () => {
                 <div className='h-[200px] relative bg-gray-100'>
                     <img 
                         className='w-full h-full object-cover'
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaj8dygYNAVcMTFuIJRkAqK_n_PVoL_n4P4g&s" 
+                        src={auth.findUser?.backgroundImage}
                         alt=""
                     />
                 </div>
@@ -52,10 +63,11 @@ const Profile = () => {
                     <Avatar 
                         className='transform -translate-y-1/2 border-4 border-white'
                         alt='Test name' 
+                        src={auth.findUser?.profilepic}
                         sx={{width:"120px", height:"120px"}}
                     />
                     <div className=''>
-                    {true ? (
+                    {auth.findUser?.req_user ? (
                         <Button 
                             variant='contained' 
                             sx={{
@@ -75,7 +87,7 @@ const Profile = () => {
                             }}
                             onClick={handleflollowUser}
                         >
-                            {true ? "Follow" : "Unfollow"}
+                            {auth.findUser?.followed? "Unfollow" : "Follow"}
                         </Button>
                     )}
                     </div>
@@ -83,31 +95,31 @@ const Profile = () => {
                 <div>
 
                 <div className='flex ietms-center mt-[-40px]'>
-                    <h1 className='font-bold text-xl'>Test name</h1>
+                    <h1 className='font-bold text-xl'>{auth.findUser?.fullName}</h1>
                 </div>
-                <h2 className='text-gray-500 text-left'>@code_name</h2>
+                <h2 className='text-gray-500 text-left'>{auth.findUser?.fullName.split(" ").join("_").toLowerCase()}</h2>
                 </div>
                 <div className='mt-4 space-y-4'>
-                <p className="text-left">Hello, tAh got it — if your YouTube tutorial guy is using STS, then it totally makes sense for you to use it too — especially if you're following along step-by-step and want things to look the same on your screen</p>
+                <p className="text-left">{auth.findUser?.bio}</p>
 
                     <div className='flex space-x-6'>
                         <div className='flex items-center text-gray-500 space-x-1'>
-                            <BusinessCenterIcon fontSize="small"/>
-                            <span>Education</span>
+                            <CakeIcon fontSize="small"/>
+                            <span>{auth.findUser?.birthday}</span>
                         </div>
                         <div className='flex items-center text-gray-500 space-x-1'>
                             <LocationOnIcon fontSize="small"/>
-                            <span>From</span>
+                            <span>{auth.findUser?.location}</span>
                         </div>
                     </div>
 
                     <div className='flex space-x-6'>
                         <div className='flex items-center space-x-1'>
-                            <span className='font-semibold'>590</span>
+                            <span className='font-semibold'>{auth.findUser?.followings?.length}</span>
                             <span className='text-gray-500'>Following</span>
                         </div>
                         <div className='flex items-center space-x-1'>
-                            <span className='font-semibold'>50</span>
+                            <span className='font-semibold'>{auth.findUser?.followers?.length}</span>
                             <span className='text-gray-500'>Followers</span>
                         </div>
                     </div>

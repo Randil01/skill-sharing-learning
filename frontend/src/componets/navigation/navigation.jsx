@@ -44,7 +44,7 @@ const Navigation = () => {
               className="cursor-pointer flex space-x-3 items-center"
               onClick={() =>
                 item.tittle === "Profile"
-                  ? navigate(`/profile/${5}`)
+                  ? navigate(`/profile/${auth.user?.id}`)
                   : navigate(item.path)
               }
             >
