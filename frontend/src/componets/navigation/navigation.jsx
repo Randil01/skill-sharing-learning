@@ -7,6 +7,7 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../Store/Auth/Action";
 
+
 const Navigation = () => {
   const {auth} = useSelector(store=>store)
   const navigate = useNavigate();
@@ -54,7 +55,7 @@ const Navigation = () => {
           ))}
         </div>
 
-        <div className="py-10 ml-[-90px]">
+        <div className="py-10 ml-[-10px]">
           <Button
             sx={{
               width: "200px",
@@ -72,7 +73,7 @@ const Navigation = () => {
           <div className="flex items-center space-x-3">
             <Avatar
               alt="username"
-              src="https://lh3.googleusercontent.com/ogw/AF2bZyg7pm6HgBOykIariQMy7GfONtoFonwYHbQDTgdu4lcdre0=s64-c-mo"
+              src={auth.user?.profilepic}
             />
             <div>
               <p>{auth.user?.fullName}</p>

@@ -1,7 +1,7 @@
 import React from 'react';
 import Navigation from '../navigation/navigation';
 import HomeSection from '../homeSection/homeSection';
-import Right from '../search/right'
+import Right from '../search/Right'
 import Profile from '../profile/profile'
 import Progress from '../progress/Progress';
 import { Route, Routes } from 'react-router-dom';

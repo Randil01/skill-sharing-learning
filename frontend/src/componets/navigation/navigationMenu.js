@@ -2,9 +2,9 @@ import HomeIcon from "@mui/icons-material/Home"
 import ExploreIcon from "@mui/icons-material/Explore"
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MessageIcon from '@mui/icons-material/Message';
-import ListAltIcon from '@mui/icons-material/ListAlt';
 import GroupIcon from '@mui/icons-material/Group';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 
 export const navigationMenue=[
     {
@@ -28,8 +28,8 @@ export const navigationMenue=[
         path:"/home"
     },
     {
-        tittle:"List All",
-        icon:<ListAltIcon/>,
+        tittle:"Q&A",
+        icon:<QuestionAnswerIcon/>,
         path:"/home"
     },
     {
