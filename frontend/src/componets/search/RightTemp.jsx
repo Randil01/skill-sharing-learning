@@ -7,7 +7,7 @@ import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import PeopleIcon from '@mui/icons-material/People';
 import StarIcon from '@mui/icons-material/Star';
 
-const Right = () => {
+const RightTemp = () => {
     const [openVerificationModal, setOpenVerificationModal] = useState(false);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
@@ -180,4 +180,4 @@ const Right = () => {
     )
 }
 
-export default Right
+export default RightTemp

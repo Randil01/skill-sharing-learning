@@ -152,18 +152,10 @@ const Profile = () => {
                                 }}
                             >
                                 <Tab label="Posts" value="1" />
-                                <Tab label="Replies" value="2" />
-                                <Tab label="Media" value="3" />
                             </TabList>
                         </Box>
                         <TabPanel value="1" sx={{ px: 3 }}>
                             {/* Posts content */}
-                        </TabPanel>
-                        <TabPanel value="2" sx={{ px: 3 }}>
-                            {/* Replies content */}
-                        </TabPanel>
-                        <TabPanel value="3" sx={{ px: 3 }}>
-                            {/* Media content */}
                         </TabPanel>
                     </TabContext>
                 </Box>
