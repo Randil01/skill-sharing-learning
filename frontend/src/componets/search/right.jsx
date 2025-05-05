@@ -45,19 +45,18 @@ const Right = () => {
     ];
 
     return (
-        <div className='py-5 sticky top-0 h-screen overflow-y-auto'>
-            <div className='bg-white sticky top-0 z-10 py-2'>
+        <div className='py-5 sticky top-0 h-screen overflow-y-auto dark:bg-gray-900'>
+            <div className='bg-white dark:bg-gray-900 sticky top-0 z-10 py-2'>
                 <div className='flex justify-end'>
                     <Brightness6Icon 
-                        className='cursor-pointer text-gray-600 hover:text-gray-800' 
-                        onClick={() => console.log("Theme change")}
+                        className='cursor-pointer text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white' 
                     />
                 </div>
             </div>
 
-            <section className='my-5 bg-gray-50 rounded-xl p-4'>
-                <h1 className='text-xl font-bold text-center'>Get Verified</h1>
-                <h1 className='font-bold my-2 text-gray-600 text-center'>Stand out in the community</h1>
+            <section className='my-5 bg-gray-50 dark:bg-gray-800 rounded-xl p-4'>
+                <h1 className='text-xl font-bold text-center dark:text-white'>Get Verified</h1>
+                <h1 className='font-bold my-2 text-gray-600 dark:text-gray-300 text-center'>Stand out in the community</h1>
                 
                 <div className='flex justify-center'>
                     <Button 
@@ -81,19 +80,19 @@ const Right = () => {
                 </div>
             </section>
 
-            <section className='mt-7 space-y-4 bg-gray-50 rounded-xl p-4'>
-                <h1 className='font-bold text-xl'>Trending Topics</h1>
+            <section className='mt-7 space-y-4 bg-gray-50 dark:bg-gray-800 rounded-xl p-4'>
+                <h1 className='font-bold text-xl dark:text-white'>Trending Topics</h1>
                 <div className='space-y-4'>
                     {trendingTopics.map((topic, index) => (
-                        <div key={index} className='hover:bg-gray-100 p-3 rounded-lg cursor-pointer transition-colors duration-200'>
+                        <div key={index} className='hover:bg-gray-100 dark:hover:bg-gray-700 p-3 rounded-lg cursor-pointer transition-colors duration-200'>
                             <div className='flex items-center justify-between'>
                                 <div>
-                                    <h3 className='font-semibold text-gray-900'>{topic.topic}</h3>
-                                    <p className='text-sm text-gray-500'>{topic.category}</p>
+                                    <h3 className='font-semibold text-gray-900 dark:text-white'>{topic.topic}</h3>
+                                    <p className='text-sm text-gray-500 dark:text-gray-400'>{topic.category}</p>
                                 </div>
                                 <div className='flex items-center space-x-2'>
                                     <TrendingUpIcon className='text-green-500' />
-                                    <span className='text-sm text-gray-600'>{topic.posts} posts</span>
+                                    <span className='text-sm text-gray-600 dark:text-gray-300'>{topic.posts} posts</span>
                                 </div>
                             </div>
                         </div>
@@ -113,16 +112,16 @@ const Right = () => {
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
                     width: 400,
-                    bgcolor: 'background.paper',
+                    bgcolor:'background.paper',
                     borderRadius: 2,
                     boxShadow: 24,
                     p: 4,
                 }}>
                     <div className='flex justify-between items-center mb-4'>
-                        <Typography variant="h6" component="h2" className='font-bold'>
+                        <Typography variant="h6" component="h2" className='font-bold dark:text-white'>
                             Get Verified
                         </Typography>
-                        <IconButton onClick={handleCloseVerificationModal}>
+                        <IconButton onClick={handleCloseVerificationModal} className='dark:text-white'>
                             <CloseIcon />
                         </IconButton>
                     </div>
@@ -132,10 +131,10 @@ const Right = () => {
                             <div key={index} className='flex items-start space-x-4'>
                                 <div className='mt-1'>{benefit.icon}</div>
                                 <div>
-                                    <Typography variant="subtitle1" className='font-semibold'>
+                                    <Typography variant="subtitle1" className='font-semibold dark:text-white'>
                                         {benefit.title}
                                     </Typography>
-                                    <Typography variant="body2" color="text.secondary">
+                                    <Typography variant="body2" color="text.secondary" className='dark:text-gray-300'>
                                         {benefit.description}
                                     </Typography>
                                 </div>

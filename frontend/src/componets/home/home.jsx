@@ -6,6 +6,7 @@ import Profile from '../profile/profile'
 import Progress from '../progress/Progress';
 import { Route, Routes } from 'react-router-dom';
 import Authentication from '../authentication/Authentication';
+import Explore from '../explore/Explore';
 
 const Homepage = () => {
   return (
@@ -22,7 +23,8 @@ const Homepage = () => {
             <Route path="/" element={<Authentication/>} />
             <Route path="/home" element={<HomeSection />} />
             <Route path="/profile/:id" element={<Profile />} />
-            <Route path="/progress" element={<Progress />} />
+            <Route path="/explore" element={<Explore />} />
+            <Route path="/progress/:id" element={<Progress />} />
           </Routes>
         </div>
 

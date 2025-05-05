@@ -41,16 +41,18 @@ const Navigation = () => {
         <div className="space-y-6">
           {navigationMenue.map((item) => (
             <div
-              key={item.tittle}
-              className="cursor-pointer flex space-x-3 items-center"
-              onClick={() =>
-                item.tittle === "Profile"
-                  ? navigate(`/profile/${auth.user?.id}`)
-                  : navigate(item.path)
-              }
-            >
-              {item.icon}
-              <p className="text-x1">{item.tittle}</p>
+            key={item.tittle}
+            className="cursor-pointer flex space-x-3 items-center"
+            onClick={() => {
+              console.log("Clicked on:", item.tittle); // <- THIS should show
+              const userId = auth.user?.id;
+              const route = item.dynamicPath ? item.dynamicPath(userId) : item.path;
+              console.log("Navigating to:", route);
+              if (route) navigate(route);
+            }}
+          >
+            {item.icon}
+            <p className="text-x1">{item.tittle}</p>
             </div>
           ))}
         </div>
