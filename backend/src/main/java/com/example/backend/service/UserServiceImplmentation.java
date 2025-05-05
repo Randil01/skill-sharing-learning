@@ -94,5 +94,17 @@ public class UserServiceImplmentation implements UserService{
         
         return userRepository.searcUsers(query);
     }
+
+    @Override
+    public List<User> findAllUsers() throws UserException {
+    List<User> users = userRepository.findAll();
+
+    if (users.isEmpty()) {
+        throw new UserException("No users found");
+    }
+
+    return users;
+}
+
     
 }

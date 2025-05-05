@@ -2,9 +2,9 @@ import HomeIcon from "@mui/icons-material/Home"
 import ExploreIcon from "@mui/icons-material/Explore"
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MessageIcon from '@mui/icons-material/Message';
-import ListAltIcon from '@mui/icons-material/ListAlt';
-import GroupIcon from '@mui/icons-material/Group';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
+import AssessmentIcon from '@mui/icons-material/Assessment';
 
 export const navigationMenue=[
     {
@@ -14,32 +14,34 @@ export const navigationMenue=[
     },
     {
         tittle:"Explore",
+        dynamicPath: (id) => `/explore`,
         icon:<ExploreIcon/>,
-        path:""
     },
     {
         tittle:"Notification",
         icon:<NotificationsIcon/>,
-        path:"/home"
+        
     },
     {
         tittle:"Message",
         icon:<MessageIcon/>,
-        path:"/home"
+        
     },
     {
-        tittle:"List All",
-        icon:<ListAltIcon/>,
-        path:"/home"
+        tittle:"Q&A",
+        icon:<QuestionAnswerIcon/>,
+        
     },
     {
-        tittle:"Groups",
-        icon:<GroupIcon/>,
-        path:"/home"
+        tittle:"Progress",
+        dynamicPath: (id) => `/progress/${id}`,
+        icon:<AssessmentIcon/>,
+        
     },
     {
         tittle:"Profile",
         icon:<AccountCircleIcon/>,
-        path:"/home"
+        dynamicPath: (id) => `/profile/${id}`,
+        
     }
 ]

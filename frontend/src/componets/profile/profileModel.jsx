@@ -28,14 +28,16 @@ export default function ProfileModel({open,handleClose}) {
   //const [open, setOpen] = React.useState(false);
   const [uploding,setUploding] = React.useState(false);
   const dispatch = useDispatch();
-  const [selectedImage,setSelectedImage] = React.useState("");
+  const [backgroundImage, setBackgroundImage] = React.useState("");
+  const [profileImage, setProfileImage] = React.useState("");
   const {auth} = useSelector(store=>store)
 
 
   const handleSubmit=(values)=>{
     dispatch(updateUserProfile(values))
     console.log("submited",values);
-    setSelectedImage("")
+    backgroundImage("")
+    profileImage("")
   }
   const formik = useFormik({
     initialValues:{
@@ -49,14 +51,21 @@ export default function ProfileModel({open,handleClose}) {
     onSubmit:handleSubmit
   })
 
-  const handleImageChnage= async (event)=>{
+  const handleImageChnage = async (event) => {
     setUploding(true);
-    const {name} = event.target
+    const { name } = event.target;
     const file = await uplodToCloudnary(event.target.files[0]);
-    formik.setFieldValue(name,file);
-    setSelectedImage(file)
+    formik.setFieldValue(name, file);
+  
+    if (name === "backgroundImage") {
+      setBackgroundImage(file);
+    } else if (name === "profilepic") {
+      setProfileImage(file);
+    }
+  
     setUploding(false);
-  }
+  };
+  
 
   return (
     <div>
@@ -81,7 +90,7 @@ export default function ProfileModel({open,handleClose}) {
                 <React.Fragment>
                   <div className='w-full'>
                     <div className='relative'>
-                        <img className="w-full h-[12rem] objecr-cover object-center" src="" alt="" />
+                        <img className="w-full h-[12rem] objecr-cover object-center" src={backgroundImage || auth.user?.backgroundImage}/>
 
                         <input
                         type="file"
@@ -95,7 +104,7 @@ export default function ProfileModel({open,handleClose}) {
 
                   <div className='w-full transform -translate-y-14 ml-4 h-[6rem]'>
                     <div className='relative'>
-                        <Avatar sx={{width:"7rem",height:"7rem", border:"4px solid white"}} src={selectedImage || auth.user?.profilepic}/>
+                        <Avatar sx={{width:"7rem",height:"7rem", border:"4px solid white"}} src={profileImage || auth.user?.profilepic}/>
 
                         <input 
                         type="file"
@@ -156,12 +165,6 @@ export default function ProfileModel({open,handleClose}) {
   }}
 />
 
-
-                    <div className='my-3'>
-                      <p className='text-lg'>Birth date . Edit</p>
-                      <p className='text-2x1'>October 27, 2000</p>
-                    </div>
-                    <p className='py-3 text-lg'> Edit profile pp</p>
                 </div>
             </div>
          </form>

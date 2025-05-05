@@ -24,6 +24,7 @@ public class UserDtoMapper {
         userDto.setFollowings(toUserDtos(user.getFollowings()));
 
         userDto.setLogin_with_google(user.isLogin_with_google());
+        
 
         return userDto;
     }
