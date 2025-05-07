@@ -7,6 +7,7 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../Store/Auth/Action";
 
+
 const Navigation = () => {
   const {auth} = useSelector(store=>store)
   const navigate = useNavigate();
@@ -40,21 +41,23 @@ const Navigation = () => {
         <div className="space-y-6">
           {navigationMenue.map((item) => (
             <div
-              key={item.tittle}
-              className="cursor-pointer flex space-x-3 items-center"
-              onClick={() =>
-                item.tittle === "Profile"
-                  ? navigate(`/profile/${auth.user?.id}`)
-                  : navigate(item.path)
-              }
-            >
-              {item.icon}
-              <p className="text-x1">{item.tittle}</p>
+            key={item.tittle}
+            className="cursor-pointer flex space-x-3 items-center"
+            onClick={() => {
+              console.log("Clicked on:", item.tittle); 
+              const userId = auth.user?.id;
+              const route = item.dynamicPath ? item.dynamicPath(userId) : item.path;
+              console.log("Navigating to:", route);
+              if (route) navigate(route);
+            }}
+          >
+            {item.icon}
+            <p className="text-x1">{item.tittle}</p>
             </div>
           ))}
         </div>
 
-        <div className="py-10 ml-[-90px]">
+        <div className="py-10 ml-[-10px]">
           <Button
             sx={{
               width: "200px",
@@ -72,7 +75,7 @@ const Navigation = () => {
           <div className="flex items-center space-x-3">
             <Avatar
               alt="username"
-              src="https://lh3.googleusercontent.com/ogw/AF2bZyg7pm6HgBOykIariQMy7GfONtoFonwYHbQDTgdu4lcdre0=s64-c-mo"
+              src={auth.user?.profilepic}
             />
             <div>
               <p>{auth.user?.fullName}</p>

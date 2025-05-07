@@ -1,5 +1,8 @@
 package com.example.backend.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,7 +63,7 @@ public class authController {
 
         String token = jwtProvider.genarateToken(authentication);
 
-        AuthResponse response = new AuthResponse(token,true);
+        AuthResponse response = new AuthResponse(token,true,savedUser.getId());
 
         return new ResponseEntity<AuthResponse>(response,HttpStatus.CREATED);
     }
@@ -74,7 +77,8 @@ public class authController {
         Authentication authentication = authenticate(username,password);
 
         String token = jwtProvider.genarateToken(authentication);
-        AuthResponse response = new AuthResponse(token,true);
+        User existingUser = userRepository.findByEmail(username);
+        AuthResponse response = new AuthResponse(token,true,existingUser.getId());
         return new ResponseEntity<AuthResponse>(response,HttpStatus.ACCEPTED);
 
     }
@@ -92,5 +96,6 @@ public class authController {
 
         return new UsernamePasswordAuthenticationToken(userDetails,null, userDetails.getAuthorities());
     }
+
 
 }

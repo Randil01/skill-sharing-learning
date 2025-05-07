@@ -1,0 +1,170 @@
+/* upload_post.css â€” Colorful, Modern UI */
+
+body {
+    background: linear-gradient(135deg, #f0f4ff, #f9f7ff, #ffe4ec);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  /* Card Styling */
+  .card {
+    max-width: 650px;
+    margin: 60px auto;
+    padding: 25px;
+    background: linear-gradient(145deg, #ffffff, #f6f0ff, #ffe9f0);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+    border: 2px solid #e0e4ff;
+    backdrop-filter: blur(8px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
+  }
+  
+  .card:hover {
+    transform: scale(1.01);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+    border-color: #c6d0ff;
+  }
+  
+  /* Headings */
+  h4, h5, h6 {
+    color: #3c3f58;
+  }
+  
+  /* Textarea */
+  textarea.form-control {
+    min-height: 100px;
+    border-radius: 12px;
+    border: 1px solid #ced4da;
+    padding: 10px 15px;
+    font-size: 1rem;
+    background: linear-gradient(135deg, #f9f9ff, #fef3ff);
+  }
+  
+  textarea:focus {
+    border-color: #7c4dff;
+    box-shadow: 0 0 5px rgba(124, 77, 255, 0.3);
+  }
+  
+  /* File input */
+  input[type="file"] {
+    border-radius: 12px;
+    padding: 10px;
+    font-size: 1rem;
+    background: linear-gradient(135deg, #f0f0ff, #fff0f6);
+    border: 2px dashed #7c4dff;
+  }
+  
+  /* Buttons */
+  button {
+    border-radius: 12px;
+    font-weight: 500;
+  }
+  
+  .btn-primary {
+    background: linear-gradient(135deg, #7c4dff, #5e35b1);
+    border: none;
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #5e35b1, #4527a0);
+  }
+  
+  .btn-outline-primary {
+    color: #7c4dff;
+    border: 2px solid #7c4dff;
+    background: transparent;
+  }
+  
+  .btn-outline-primary:hover {
+    background: #7c4dff;
+    color: white;
+  }
+  
+  .btn-outline-success {
+    color: #00b894;
+    border: 2px solid #00b894;
+    background: transparent;
+  }
+  
+  .btn-outline-success:hover {
+    background-color: #00b894;
+    color: white;
+  }
+  
+  /* Post Card */
+  .post-card {
+    background: linear-gradient(135deg, #fdfbff, #eef1ff, #fff3f6);
+    border: 2px solid #d1d9ff;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+  }
+  
+  .post-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    border-color: #b5c0ff;
+  }
+  
+  /* Icon Actions */
+  .post-card .icon-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+  }
+  
+  .post-card .icon-actions div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 10px;
+    border-radius: 10px;
+    transition: background-color 0.2s, transform 0.2s;
+  }
+  
+  .post-card .icon-actions div:hover {
+    background-color: #e8f0ff;
+    transform: scale(1.05);
+  }
+  
+  /* Media */
+  img, video {
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  img:hover, video:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Comments section */
+  .comment-section {
+    margin-top: 15px;
+    padding: 15px;
+    background: linear-gradient(135deg, #e6f0ff, #f0f7ff);
+    border-radius: 16px;
+    border: 2px solid #cddfff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .comment-section:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+  }
+  
+  
+  /* Utility Lists */
+  ul {
+    padding-left: 20px;
+    margin-top: 10px;
+  }
+  
+  li {
+    padding: 4px 0;
+    color: #333;
+  }
+  
