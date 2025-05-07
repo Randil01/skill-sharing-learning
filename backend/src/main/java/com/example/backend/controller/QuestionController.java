@@ -24,7 +24,7 @@ public class QuestionController {
     public ResponseEntity<QuestionDTO> getQuestionById(@PathVariable Long id) {
         return ResponseEntity.ok(questionService.getQuestionById(id));
     }
-
+ 
     @GetMapping
     public ResponseEntity<List<QuestionDTO>> getAllQuestions() {
         return ResponseEntity.ok(questionService.getAllQuestions());
