@@ -29,7 +29,7 @@ function App() {
     if (jwt && !auth.user) {
       dispatch(getUserProfile(jwt));
       navigate("/home");
-    }
+     }
   }, [dispatch, auth.user, navigate]);
 
   return (
