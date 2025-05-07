@@ -72,7 +72,7 @@ const AddQuestion = ({ onSubmit, onCancel, initialData }) => {
             id="topic"
             value={topic}
             onChange={(e) => setTopic(e.target.value)}
-            className="w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            className="w-full p-2 border border-gray-300 rounded focus:border-blue-300 focus:outline-none focus:ring-1 focus:ring-blue-300 "
             placeholder="Enter the topic of your question"
             required
           />
