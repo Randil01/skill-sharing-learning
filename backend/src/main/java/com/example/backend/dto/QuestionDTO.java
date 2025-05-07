@@ -15,7 +15,7 @@ public class QuestionDTO {
     private String title;
     private String description;
     private String topic;
-    private Long userId;
+    private String userEmail;
     private String userName;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

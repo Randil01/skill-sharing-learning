@@ -48,8 +48,8 @@ public class QuestionController {
         return ResponseEntity.ok(questionService.getQuestionsByTopic(topic));
     }
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<QuestionDTO>> getQuestionsByUserId(@PathVariable Long userId) {
-        return ResponseEntity.ok(questionService.getQuestionsByUserId(userId));
+    @GetMapping("/user/{userEmail}")
+    public ResponseEntity<List<QuestionDTO>> getQuestionsByUserEmail(@PathVariable String userEmail) {
+        return ResponseEntity.ok(questionService.getQuestionsByUserEmail(userEmail));
     }
 } 
