@@ -6,10 +6,12 @@ import VerifiedIcon from '@mui/icons-material/Verified';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import PeopleIcon from '@mui/icons-material/People';
 import StarIcon from '@mui/icons-material/Star';
+import { useTheme } from '../../config/ThemeContext';
 
 const RightTemp = () => {
     const [openVerificationModal, setOpenVerificationModal] = useState(false);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+    const { darkMode, toggleDarkMode } = useTheme();
 
     const handleOpenVerificationModal = () => setOpenVerificationModal(true);
     const handleCloseVerificationModal = () => setOpenVerificationModal(false);
@@ -48,9 +50,9 @@ const RightTemp = () => {
         <div className='py-5 sticky top-0 h-screen overflow-y-auto dark:bg-gray-900'>
             <div className='bg-white dark:bg-gray-900 sticky top-0 z-10 py-2'>
                 <div className='flex justify-end'>
-                    <Brightness6Icon 
-                        className='cursor-pointer text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white' 
-                    />
+                    <IconButton onClick={toggleDarkMode} className='text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white'>
+                        <Brightness6Icon />
+                    </IconButton>
                 </div>
             </div>
 

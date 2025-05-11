@@ -76,7 +76,7 @@ const Progress = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8 text-center">Learning Progress Updates</h1>
+      <h1 className="text-3xl font-bold mb-8 text-center dark:text-white">Learning Progress Updates</h1>
       
       {/* Notification */}
       {showNotification && (
