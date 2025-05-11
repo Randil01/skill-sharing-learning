@@ -25,6 +25,18 @@ public class JwtProvider {
         return jwt;
     }
 
+    public String generateTokenWithEmail(String email){
+        String jwt = Jwts.builder()
+            .setIssuedAt(new Date())
+            .setExpiration(new Date(new Date().getTime() + 86400000)) // 1 day
+            .claim("email", email)
+            .signWith(key)
+            .compact();
+    
+        return jwt;
+    }
+    
+
 
     public String getEmailFormToken(String jwt){
 

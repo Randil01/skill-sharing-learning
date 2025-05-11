@@ -1,6 +1,7 @@
 package com.example.backend.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,8 +42,8 @@ public class UserController {
         }
     
     @GetMapping("/{userId}")
-     public ResponseEntity<UserDto> getUserProfile (@PathVariable Long userId,
-        @RequestHeader("Authorization")String jwt)
+    public ResponseEntity<UserDto> getUserProfile (@PathVariable Long userId,
+    @RequestHeader("Authorization")String jwt)
         throws UserException{
                 
             User reqUser = userService.findUserProfileByJwt(jwt);
@@ -53,45 +54,57 @@ public class UserController {
              userDto.setFollowed(UserUtill.isFollowedbyReqUser(reqUser, user));
             return new ResponseEntity<UserDto>(userDto,HttpStatus.ACCEPTED);
                 
-         }
+        }
 
-        @GetMapping("/search")
-        public ResponseEntity<List<UserDto>> searchUser (@RequestParam String query,
-            @RequestHeader("Authorization")String jwt)
-            throws UserException{
+    @GetMapping("/search")
+    public ResponseEntity<List<UserDto>> searchUser (@RequestParam String query,
+    @RequestHeader("Authorization")String jwt)
+        throws UserException{
                     
-                User reqUser = userService.findUserProfileByJwt(jwt);
+            User reqUser = userService.findUserProfileByJwt(jwt);
     
-                List<User> users = userService.searchUser(query);
-                List<UserDto> userDtos = UserDtoMapper.toUserDtos(users);
+            List<User> users = userService.searchUser(query);
+            List<UserDto> userDtos = UserDtoMapper.toUserDtos(users);
                     
-                return new ResponseEntity<>(userDtos,HttpStatus.ACCEPTED);
-            }
+            return new ResponseEntity<>(userDtos,HttpStatus.ACCEPTED);
+        }
 
-        @PutMapping("/update")
-        public ResponseEntity<UserDto> updateUser (@RequestBody User req,
-            @RequestHeader("Authorization")String jwt)
-            throws UserException{
+    @PutMapping("/update")
+    public ResponseEntity<UserDto> updateUser (@RequestBody User req,
+    @RequestHeader("Authorization")String jwt)
+        throws UserException{
                         
-                User reqUser = userService.findUserProfileByJwt(jwt);
+            User reqUser = userService.findUserProfileByJwt(jwt);
         
-                User user = userService.updateUser(reqUser.getId(),req);
-                UserDto userDto = UserDtoMapper.toUserDto(user);
+            User user = userService.updateUser(reqUser.getId(),req);
+            UserDto userDto = UserDtoMapper.toUserDto(user);
                         
-                return new ResponseEntity<>(userDto,HttpStatus.ACCEPTED);
-            }
+            return new ResponseEntity<>(userDto,HttpStatus.ACCEPTED);
+        }
 
-            @PutMapping("/{userId}/follow")
-            public ResponseEntity<UserDto> followUser (@PathVariable Long userId,
-                @RequestHeader("Authorization")String jwt)
-                throws UserException{
+    @PutMapping("/{userId}/follow")
+    public ResponseEntity<UserDto> followUser (@PathVariable Long userId,
+    @RequestHeader("Authorization")String jwt)
+        throws UserException{
                             
-                    User reqUser = userService.findUserProfileByJwt(jwt);
+            User reqUser = userService.findUserProfileByJwt(jwt);
             
-                    User user = userService.followUser(userId, reqUser);
-                    UserDto userDto = UserDtoMapper.toUserDto(user);
-                    userDto.setFollowed(UserUtill.isFollowedbyReqUser(reqUser, user));
+            User user = userService.followUser(userId, reqUser);
+            UserDto userDto = UserDtoMapper.toUserDto(user);
+            userDto.setFollowed(UserUtill.isFollowedbyReqUser(reqUser, user));
                             
-                    return new ResponseEntity<>(userDto,HttpStatus.ACCEPTED);
-                }
+            return new ResponseEntity<>(userDto,HttpStatus.ACCEPTED);
+        }
+
+    @GetMapping("/allprofiles")
+    public ResponseEntity<List<UserDto>> getAllUserProfiles() throws UserException {
+
+    List<User> users = userService.findAllUsers(); 
+    List<UserDto> userDtos = users.stream()
+                                  .map(UserDtoMapper::toUserDto)
+                                  .collect(Collectors.toList());
+
+    return new ResponseEntity<>(userDtos, HttpStatus.OK);
+    }
+
 }
