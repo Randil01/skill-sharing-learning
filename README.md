@@ -51,7 +51,7 @@ A collaborative web application for sharing knowledge, learning new skills, and 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/skill-sharing-platform.git
+https://github.com/Randil01/skill-sharing-learning.git
 cd skill-sharing-platform
 ```
 
@@ -108,8 +108,8 @@ This project is licensed under the MIT License.
 
 ---
 
-## 👨‍💻 Author
+## 👨‍💻 Authors
 
-- **Your Name** – [your-linkedin](https://www.linkedin.com/in/yourname)
+-
 
 ---
