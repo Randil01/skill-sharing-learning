@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Button } from '@mui/material'
-import { GoogleLogin } from '@react-oauth/google';
 import AuthModel from './AuthModel';
 
 const Authentication = () => {

@@ -65,13 +65,6 @@ const SignupForm = () => {
     });
   };
 
-  const menuProps = {
-    PaperProps: {
-      style: {
-        maxHeight: 200,
-      },
-    },
-  };
 
   return (
     <form onSubmit={formik.handleSubmit}>

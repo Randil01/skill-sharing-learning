@@ -2,12 +2,10 @@ package com.example.backend.config;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,41 +16,41 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Configuration
-@EnableWebSecurity
 public class AppConfig {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
-            .authorizeHttpRequests(Authorize -> Authorize.requestMatchers("/api/**").authenticated().anyRequest().permitAll()
-            ).addFilterBefore(new JwtTokenValidator(), BasicAuthenticationFilter.class)
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/api/**").authenticated()  // Require authentication for API routes
+                .anyRequest().permitAll()  // Allow other requests without authentication
+            )
+            .addFilterBefore(new JwtTokenValidator(), BasicAuthenticationFilter.class)  // Add JWT filter
             .csrf().disable()
-            .cors().configurationSource(corsConfigrationSource()).and()
-            .httpBasic().and().formLogin();
+            .cors().configurationSource(corsConfigrationSource())  // Configure CORS
+            .and()
+            .httpBasic().and().formLogin();  // Enable HTTP basic and form login if needed
         
         return http.build();
     }
 
     private CorsConfigurationSource corsConfigrationSource() {
-    
-        return new CorsConfigurationSource() {
-            @Override
-            public CorsConfiguration getCorsConfiguration(HttpServletRequest request){
-                
-                CorsConfiguration cfg = new CorsConfiguration();
-                cfg.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
-                cfg.setAllowedMethods(Collections.singletonList("*"));
-                cfg.setAllowCredentials(true);
-                cfg.setAllowedHeaders(Collections.singletonList("*"));
-                cfg.setExposedHeaders(Arrays.asList("Authorization"));
-                cfg.setMaxAge(3600L);
-                return cfg;
-            }
+        return request -> {
+            CorsConfiguration cfg = new CorsConfiguration();
+            cfg.setAllowedOrigins(Arrays.asList("http://localhost:3000"));  // Specify allowed origin for CORS
+            cfg.setAllowedMethods(Collections.singletonList("*"));  // Allow all HTTP methods
+            cfg.setAllowCredentials(true);  // Allow credentials (cookies, etc.)
+            cfg.setAllowedHeaders(Collections.singletonList("*"));  // Allow all headers
+            cfg.setExposedHeaders(Arrays.asList("Authorization"));  // Expose Authorization header
+            cfg.setMaxAge(3600L);  // Cache preflight response for 1 hour
+            return cfg;
         };
     }
+
     @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();  // Use BCryptPasswordEncoder for password encoding
     }
 }

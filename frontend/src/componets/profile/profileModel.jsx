@@ -26,7 +26,7 @@ const style = {
 
 export default function ProfileModel({open,handleClose}) {
   //const [open, setOpen] = React.useState(false);
-  const [uploding,setUploding] = React.useState(false);
+  const [,setUploding] = React.useState(false);
   const dispatch = useDispatch();
   const [selectedImage,setSelectedImage] = React.useState("");
   const {auth} = useSelector(store=>store)

@@ -3,8 +3,6 @@ package com.example.backend.modal;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
-
 @Entity
 @Data
 @NoArgsConstructor
@@ -16,11 +14,13 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
-    @ElementCollection
-    @CollectionTable(name = "post_files", joinColumns = @JoinColumn(name = "post_id"))
-    @Column(name = "file_url")
-    private List<String> files;
+    private String imageUrl;  // Will store filename or base64 string
+
+    private String username;  // Dummy static user for now
+
+    private String userAvatarUrl;
+
+    private String createdAt; // Optional: timestamp as String for now
 }

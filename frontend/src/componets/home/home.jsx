@@ -4,6 +4,7 @@ import HomeSection from '../homeSection/homeSection';
 import Right from '../search/right'
 import Profile from '../profile/profile'
 import Progress from '../progress/Progress';
+import Post from '../post/UploadPost';
 import { Route, Routes } from 'react-router-dom';
 import Authentication from '../authentication/Authentication';
 
@@ -23,6 +24,7 @@ const Homepage = () => {
             <Route path="/home" element={<HomeSection />} />
             <Route path="/profile/:id" element={<Profile />} />
             <Route path="/progress" element={<Progress />} />
+            <Route path="/Post" element={<Post />} />
           </Routes>
         </div>
 
