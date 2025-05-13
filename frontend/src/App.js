@@ -19,18 +19,18 @@ function App() {
       localStorage.setItem("jwt", token);
       dispatch(getUserProfile(token));
       navigate("/home");
-      window.history.replaceState({}, document.title, "/home"); // Clean URL
+      window.history.replaceState({}, document.title, "/home");
     }
   }, [dispatch, navigate]);
 
-  // If jwt exists in localStorage and user is not loaded → fetch profile
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
 
     if (jwt && !auth.user) {
       dispatch(getUserProfile(jwt));
-    }
-  }, [dispatch, auth.user]);
+      navigate("/home");
+     }
+  }, [dispatch, auth.user, navigate]);
 
   return (
     <div className="App">
