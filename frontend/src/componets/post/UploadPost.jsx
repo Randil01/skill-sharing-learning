@@ -5,7 +5,7 @@ import ImageIcon from "@mui/icons-material/Image";
 import FmdGoodIcon from "@mui/icons-material/FmdGood";
 import TagFacesIcon from "@mui/icons-material/TagFaces";
 import * as Yup from "yup";
-import PostCard from "./postCard";
+import PostCard from "./postcard";
 
 const validationSchema = Yup.object().shape({
   content: Yup.string().required("Description is required"),

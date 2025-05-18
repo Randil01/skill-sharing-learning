@@ -56,21 +56,7 @@ const Navigation = () => {
             </div>
           ))}
         </div>
-
-        <div className="py-10 ml-[-10px]">
-          <Button
-            sx={{
-              width: "200px",
-              borderRadius: "30px",
-              py: "10px",
-              bgcolor: "#1e88e5",
-            }}
-            variant="contained"
-          >
-            Post your idea
-          </Button>
-        </div>
-
+        <br></br>
         <div className="flex items-center justify-between mt-8">
           <div className="flex items-center space-x-3">
             <Avatar

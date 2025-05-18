@@ -110,6 +110,7 @@ const PostCard = ({
   };
 
   return (
+    <div>
     <article
       className="border border-gray-200 p-4 rounded-md shadow-sm max-w-xl mx-auto mb-6"
       role="region"
@@ -209,6 +210,7 @@ const PostCard = ({
         </section>
       )}
     </article>
+    </div>
   );
 };
 
