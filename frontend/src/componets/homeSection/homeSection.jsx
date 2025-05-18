@@ -1,16 +1,48 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
+import PostCard from "../post/postCard"; // Adjust path if needed
+import UploadPost from "../post/UploadPost";
+import axios from "axios";
 
-const homeSection = () => {
+const HomeSection = () => {
+  const [posts, setPosts] = useState([]);
+
+  // Fetch posts from backend
+  const fetchPosts = () => {
+    axios
+      .get("http://localhost:5454/api/posts")
+      .then((response) => {
+        setPosts(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching posts:", error);
+      });
+  };
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
   return (
-    <div className='space-y-5'>
-      <section>
-        <h1 className='py-5 text-x1 font-bold opacity-90'>Home</h1>
-      </section>
-      <section>
-          
+    <div className="space-y-5">
+      {/* Upload Post Form */}
+      <UploadPost onPostCreated={fetchPosts} />
+
+      {/* Posts List */}
+      <section className="space-y-4">
+        {posts.map((post) => (
+          <PostCard
+            key={post.id}
+            postId={post.id}
+            content={post.content}
+            mediaUrl={post.imageUrl || post.mediaUrl}
+            mediaType={post.mediaType}
+            onEdit={() => {}}
+            onDelete={() => {}}
+          />
+        ))}
       </section>
     </div>
-  )
-}
+  );
+};
 
-export default homeSection
+export default HomeSection;

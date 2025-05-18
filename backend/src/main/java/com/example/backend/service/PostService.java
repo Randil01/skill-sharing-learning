@@ -27,8 +27,11 @@ public class PostService {
     public Post updatePost(Long id, Post updatedPost) {
         Post existingPost = postRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Post not found"));
+        
         existingPost.setContent(updatedPost.getContent());
-        existingPost.setImageUrl(updatedPost.getImageUrl());
+        existingPost.setMediaUrl(updatedPost.getMediaUrl());
+        existingPost.setMediaType(updatedPost.getMediaType());
+
         return postRepository.save(existingPost);
     }
 }

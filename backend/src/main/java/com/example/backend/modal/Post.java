@@ -1,26 +1,37 @@
 package com.example.backend.modal;
 
+import java.time.Instant;
+
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Entity
 @Data
 @NoArgsConstructor
+@Table(name = "posts")
 @AllArgsConstructor
 @Builder
 public class Post {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
+    @Column(length = 1000)
     private String content;
 
-    private String imageUrl;  // Will store filename or base64 string
+    @Column(length = 500)
+    private String mediaUrl;
 
-    private String username;  // Dummy static user for now
+    @Column(length = 20)
+    private String mediaType;
 
-    private String userAvatarUrl;
+    @Column(nullable = false, updatable = false)
+    private Instant createdAt;
 
-    private String createdAt; // Optional: timestamp as String for now
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = Instant.now();
+    }
 }

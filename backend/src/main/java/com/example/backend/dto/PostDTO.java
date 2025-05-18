@@ -9,7 +9,7 @@ import lombok.*;
 public class PostDTO {
     private Long id;
     private String content;
-    private String imageUrl;
+    private String mediaUrl;
     private String username;
     private String userAvatarUrl;
     private String createdAt;
