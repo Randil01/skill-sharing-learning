@@ -1,26 +1,37 @@
 package com.example.backend.modal;
 
-import jakarta.persistence.*;
-import lombok.*;
+import java.time.Instant;
 
-import java.util.List;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
 @Entity
 @Data
 @NoArgsConstructor
+@Table(name = "posts")
 @AllArgsConstructor
 @Builder
 public class Post {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @NotNull
+    @Column(length = 1000)
     private String content;
 
-    @ElementCollection
-    @CollectionTable(name = "post_files", joinColumns = @JoinColumn(name = "post_id"))
-    @Column(name = "file_url")
-    private List<String> files;
+    @Column(length = 500)
+    private String mediaUrl;
+
+    @Column(length = 20)
+    private String mediaType;
+
+    @Column(nullable = false, updatable = false)
+    private Instant createdAt;
+
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = Instant.now();
+    }
 }

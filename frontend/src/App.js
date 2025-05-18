@@ -36,6 +36,8 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/*" element={auth.user ? <Homepage /> : <Authentication />} />
+        <Route path="/post" />
+
       </Routes>
     </div>
   );

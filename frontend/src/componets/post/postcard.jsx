@@ -1,183 +1,226 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Avatar, TextField, Button } from '@mui/material';
-import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
-import RepeatIcon from '@mui/icons-material/Repeat';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import UploadIcon from '@mui/icons-material/Upload';
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import {
+  Avatar,
+  IconButton,
+  Menu,
+  MenuItem,
+  TextField,
+  Button,
+} from "@mui/material";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+import ShareIcon from "@mui/icons-material/Share";
 
-const PostCard = ({ post }) => {
-  const { content, image, user = "user", username = "@user" } = post;
-
+const PostCard = ({
+  postId,
+  content,
+  mediaUrl,
+  mediaType,
+  username = "User",
+  userAvatarUrl = "",
+  onEdit = () => {},
+  onDelete = () => {},
+}) => {
+  const [anchorEl, setAnchorEl] = useState(null);
   const [liked, setLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(8);
-  const [commentsVisible, setCommentsVisible] = useState(false);
-  const [uploaded, setUploaded] = useState(false);
-  const [commentText, setCommentText] = useState('');
+  const [likeCount, setLikeCount] = useState(0);
+  const [showCommentBox, setShowCommentBox] = useState(false);
+  const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
-  const commentInputRef = useRef(null);
 
-  const toggleLike = () => {
-    setLiked((prev) => !prev);
-    setLikeCount((prev) => (liked ? prev - 1 : prev + 1));
-  };
+  const open = Boolean(anchorEl);
 
-  const toggleComments = () => {
-    setCommentsVisible((prev) => !prev);
-  };
-
-  const handleUpload = () => {
-    if (!uploaded) {
-      setUploaded(true);
-      console.log('Upload clicked!');
-    }
-  };
-
-  const handleCommentSubmit = () => {
-    if (commentText.trim() !== '') {
-      setComments([...comments, commentText]);
-      setCommentText('');
-    }
-  };
-
-  // Focus comment input when comments open
   useEffect(() => {
-    if (commentsVisible && commentInputRef.current) {
-      commentInputRef.current.focus();
-    }
-  }, [commentsVisible]);
+    const storedLikes = localStorage.getItem(`post-${postId}-liked`);
+    const storedLikeCount = localStorage.getItem(`post-${postId}-likeCount`);
+    const storedComments = localStorage.getItem(`post-${postId}-comments`);
 
-  const imageUrl = image?.trim() !== '' ? image : '/default-image.jpg';
-  console.log('Post image prop:', image);
+    if (storedLikes !== null) setLiked(JSON.parse(storedLikes));
+    if (storedLikeCount !== null) setLikeCount(Number(storedLikeCount));
+    if (storedComments !== null) setComments(JSON.parse(storedComments));
+  }, [postId]);
+
+  useEffect(() => {
+    localStorage.setItem(`post-${postId}-liked`, JSON.stringify(liked));
+    localStorage.setItem(`post-${postId}-likeCount`, likeCount);
+  }, [liked, likeCount, postId]);
+
+  useEffect(() => {
+    localStorage.setItem(`post-${postId}-comments`, JSON.stringify(comments));
+  }, [comments, postId]);
+
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleEdit = () => {
+    handleMenuClose();
+    onEdit(postId);
+  };
+
+  const handleDelete = () => {
+    handleMenuClose();
+    if (window.confirm("Are you sure you want to delete this post?")) {
+      onDelete(postId);
+    }
+  };
+
+  const handleLike = () => {
+    const newLiked = !liked;
+    setLiked(newLiked);
+    setLikeCount((count) => (newLiked ? count + 1 : count - 1));
+  };
+
+  const handleToggleCommentBox = () => {
+    setShowCommentBox((prev) => !prev);
+  };
+
+  const handleCommentSubmit = (e) => {
+    e.preventDefault();
+    if (!comment.trim()) return;
+    setComments((prev) => [...prev, comment.trim()]);
+    setComment("");
+  };
+
+  const handleShare = () => {
+    navigator.clipboard.writeText(window.location.href);
+    alert("Post link copied to clipboard!");
+  };
+
+  const renderMedia = () => {
+    if (!mediaUrl || !mediaType) return null;
+
+    const commonClasses = "w-full max-w-xl border border-gray-300 rounded-md mt-3";
+
+    return mediaType === "image" ? (
+      <img className={commonClasses} src={mediaUrl} alt="Shared post media" />
+    ) : mediaType === "video" ? (
+      <video className={commonClasses} controls>
+        <source src={mediaUrl} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    ) : null;
+  };
 
   return (
-    <div className="border-b px-5 py-6 flex gap-4 w-full">
-      <Avatar alt={user} />
-      <div className="w-full">
-        {/* Header */}
-        <div className="flex justify-between items-center">
-          <p className="text-sm">
-            <span className="font-semibold">{user}</span>
-            <span className="text-gray-500 ml-2">{username} Â· 2m</span>
-          </p>
-          <div className="font-bold cursor-pointer text-lg">â‹¯</div>
+    <article
+      className="border border-gray-200 p-4 rounded-md shadow-sm max-w-xl mx-auto mb-6"
+      role="region"
+      aria-labelledby={`post-${postId}-username`}
+    >
+      <header className="flex items-center space-x-4">
+        <Avatar alt={username} src={userAvatarUrl} />
+        <div className="flex-1">
+          <h2 id={`post-${postId}-username`} className="font-semibold">
+            {username}
+          </h2>
+          <time
+            className="text-sm text-gray-500"
+            dateTime={new Date().toISOString()}
+          >
+            @{username.toLowerCase()} · just now
+          </time>
         </div>
+        <IconButton
+          aria-label="Post options"
+          onClick={handleMenuOpen}
+          size="large"
+        >
+          <MoreVertIcon />
+        </IconButton>
+        <Menu
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleMenuClose}
+          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+          transformOrigin={{ vertical: "top", horizontal: "right" }}
+        >
+          <MenuItem onClick={handleEdit}>Edit</MenuItem>
+          <MenuItem onClick={handleDelete}>Delete</MenuItem>
+        </Menu>
+      </header>
 
-        {/* Content */}
-        <div className="my-2 text-base text-gray-800 whitespace-pre-wrap">
-          {content || "No content provided"}
-        </div>
+      <section className="mt-2">
+        <p className="whitespace-pre-wrap text-gray-800">{content}</p>
+        {renderMedia()}
+      </section>
 
-        {/* Image */}
-        {(image && image.trim() !== '') && (
-          <div className="border border-gray-300 p-3 rounded-md w-full max-w-md">
-            <img
-              src={imageUrl}
-              alt="Post visual"
-              className="rounded-md max-h-72 w-full object-cover"
-              onError={(e) => {
-                e.target.src = '/default-image.jpg';
-              }}
+      <section className="flex items-center space-x-6 mt-4 text-gray-600">
+        <button
+          onClick={handleLike}
+          className="flex items-center space-x-1 hover:text-blue-600"
+          aria-label={liked ? "Unlike post" : "Like post"}
+        >
+          {liked ? (
+            <FavoriteIcon className="text-red-500" />
+          ) : (
+            <FavoriteBorderIcon />
+          )}
+          <span>{likeCount}</span>
+        </button>
+
+        <button
+          onClick={handleToggleCommentBox}
+          className="flex items-center space-x-1 hover:text-blue-600"
+          aria-label="Comment on post"
+        >
+          <ChatBubbleOutlineIcon />
+          <span>{comments.length}</span>
+        </button>
+
+        <button
+          onClick={handleShare}
+          className="flex items-center space-x-1 hover:text-blue-600"
+          aria-label="Share post"
+        >
+          <ShareIcon />
+        </button>
+      </section>
+
+      {showCommentBox && (
+        <section className="mt-4 space-y-3">
+          <form onSubmit={handleCommentSubmit} className="flex space-x-2">
+            <TextField
+              fullWidth
+              size="small"
+              variant="outlined"
+              placeholder="Write a comment..."
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
             />
+            <Button type="submit" variant="contained" color="primary">
+              Post
+            </Button>
+          </form>
+          <div className="space-y-2 max-h-48 overflow-y-auto">
+            {comments.map((c, i) => (
+              <p key={i} className="text-sm bg-gray-100 p-2 rounded">
+                {c}
+              </p>
+            ))}
           </div>
-        )}
-
-        {/* Uploader Info */}
-        <div className="flex items-center gap-2 mt-3 text-xs text-gray-600">
-          <UploadIcon fontSize="small" className="text-blue-500" aria-label="upload icon"/>
-          <span>Uploaded by {user}</span>
-        </div>
-
-        {/* Action Icons */}
-        <div className="flex flex-wrap gap-4 mt-4 text-gray-500 text-xs">
-          {/* Comments */}
-          <div
-            onClick={toggleComments}
-            className="flex items-center gap-1 cursor-pointer hover:text-blue-500"
-            aria-label="comments button"
-          >
-            <ChatBubbleOutlineIcon fontSize="small" />
-            <span>{comments.length}</span>
-          </div>
-
-          {/* Reposts */}
-          <div
-            className="flex items-center gap-1 cursor-pointer hover:text-green-500"
-            aria-label="repost button"
-          >
-            <RepeatIcon fontSize="small" />
-            <span>3</span>
-          </div>
-
-          {/* Likes */}
-          <div
-            onClick={toggleLike}
-            className={`flex items-center gap-1 cursor-pointer ${
-              liked ? 'text-red-500' : 'hover:text-red-500'
-            }`}
-            aria-label="like button"
-          >
-            {liked ? <FavoriteIcon fontSize="small" /> : <FavoriteBorderIcon fontSize="small" />}
-            <span>{likeCount}</span>
-          </div>
-
-          {/* Views */}
-          <div className="flex items-center gap-1" aria-label="views">
-            <BarChartIcon fontSize="small" />
-            <span>143</span>
-          </div>
-
-          {/* Upload */}
-          <div
-            onClick={handleUpload}
-            className={`flex items-center gap-1 cursor-pointer ${
-              uploaded ? 'text-green-600' : 'hover:text-green-600'
-            }`}
-            aria-label="upload button"
-          >
-            <UploadIcon fontSize="small" />
-            <span>{uploaded ? 'Done' : 'Upload'}</span>
-          </div>
-        </div>
-
-        {/* Comments Section */}
-        {commentsVisible && (
-          <div className="mt-3 text-sm text-gray-700 border-t pt-3">
-            <p className="font-semibold mb-2">ðŸ’¬ Comments</p>
-
-            {comments.length > 0 ? (
-              <ul className="mb-2">
-                {comments.map((comment, idx) => (
-                  <li key={idx} className="mb-1 border-b pb-1">
-                    {comment}
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="text-gray-400 mb-2">No comments yet.</p>
-            )}
-
-            {/* Comment input */}
-            <div className="flex gap-2">
-              <TextField
-                size="small"
-                variant="outlined"
-                fullWidth
-                placeholder="Write a comment..."
-                value={commentText}
-                inputRef={commentInputRef}
-                onChange={(e) => setCommentText(e.target.value)}
-              />
-              <Button variant="contained" onClick={handleCommentSubmit}>
-                Post
-              </Button>
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
+        </section>
+      )}
+    </article>
   );
+};
+
+PostCard.propTypes = {
+  postId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  content: PropTypes.string.isRequired,
+  mediaUrl: PropTypes.string,
+  mediaType: PropTypes.oneOf(["image", "video"]),
+  username: PropTypes.string,
+  userAvatarUrl: PropTypes.string,
+  onEdit: PropTypes.func,
+  onDelete: PropTypes.func,
 };
 
 export default PostCard;
