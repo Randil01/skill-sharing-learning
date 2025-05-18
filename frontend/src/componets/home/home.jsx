@@ -1,13 +1,15 @@
 import React from 'react';
 import Navigation from '../navigation/navigation';
 import HomeSection from '../homeSection/homeSection';
-import Right from '../search/Right'
+import Right from '../search/RightTemp'
 import Profile from '../profile/profile'
 import Progress from '../progress/Progress';
 import Post from '../post/UploadPost';
 import { Route, Routes } from 'react-router-dom';
 import Authentication from '../authentication/Authentication';
 import Explore from '../explore/Explore';
+import QnAPage from '../Q&A/Qn&aMain';
+import AddQuestionForm from '../Q&A/AddQuestion';
 
 const Homepage = () => {
   return (
@@ -18,7 +20,6 @@ const Homepage = () => {
           <Navigation />
         </div>
 
-        {/* Main Content Section */}
         <div className='flex-1 min-h-screen border-r border-gray-100 max-w-[600px]'>
           <Routes>
             <Route path="/" element={<Authentication/>} />
@@ -28,6 +29,7 @@ const Homepage = () => {
             <Route path="/Post" element={<Post />} />
             <Route path="/explore" element={<Explore />} />
             <Route path="/progress/:id" element={<Progress />} />
+            <Route path="/questions/:id" element={<QnAPage />} />
           </Routes>
         </div>
 

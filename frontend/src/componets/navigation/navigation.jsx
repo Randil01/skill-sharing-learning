@@ -44,7 +44,7 @@ const Navigation = () => {
             key={item.tittle}
             className="cursor-pointer flex space-x-3 items-center"
             onClick={() => {
-              console.log("Clicked on:", item.tittle); // <- THIS should show
+              console.log("Clicked on:", item.tittle); 
               const userId = auth.user?.id;
               const route = item.dynamicPath ? item.dynamicPath(userId) : item.path;
               console.log("Navigating to:", route);

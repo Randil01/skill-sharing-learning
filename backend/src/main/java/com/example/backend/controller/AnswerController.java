@@ -43,8 +43,8 @@ public class AnswerController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<AnswerDTO>> getAnswersByUserId(@PathVariable Long userId) {
-        return ResponseEntity.ok(answerService.getAnswersByUserId(userId));
+    @GetMapping("/user/{userEmail}")
+    public ResponseEntity<List<AnswerDTO>> getAnswersByUserEmail(@PathVariable String userEmail) {
+        return ResponseEntity.ok(answerService.getAnswersByUserEmail(userEmail));
     }
 } 

@@ -21,8 +21,10 @@ public class QuestionService {
     private UserRepository userRepository;
 
     public QuestionDTO createQuestion(QuestionDTO questionDTO) {
-        User user = userRepository.findById(questionDTO.getUserId())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userRepository.findByEmail(questionDTO.getUserEmail());
+        if (user == null) {
+            throw new RuntimeException("User not found with email: " + questionDTO.getUserEmail());
+        }
 
         Question question = new Question();
         question.setTitle(questionDTO.getTitle());
@@ -68,8 +70,12 @@ public class QuestionService {
                 .collect(Collectors.toList());
     }
 
-    public List<QuestionDTO> getQuestionsByUserId(Long userId) {
-        return questionRepository.findByUserId(userId).stream()
+    public List<QuestionDTO> getQuestionsByUserEmail(String userEmail) {
+        User user = userRepository.findByEmail(userEmail);
+        if (user == null) {
+            throw new RuntimeException("User not found with email: " + userEmail);
+        }
+        return questionRepository.findByUserId(user.getId()).stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
@@ -80,7 +86,7 @@ public class QuestionService {
         dto.setTitle(question.getTitle());
         dto.setDescription(question.getDescription());
         dto.setTopic(question.getTopic());
-        dto.setUserId(question.getUser().getId());
+        dto.setUserEmail(question.getUser().getEmail());
         dto.setUserName(question.getUser().getFullName());
         dto.setCreatedAt(question.getCreatedAt());
         dto.setUpdatedAt(question.getUpdatedAt());
