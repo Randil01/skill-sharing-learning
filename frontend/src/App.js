@@ -31,15 +31,13 @@ function App() {
     if (jwt && !auth.user) {
       dispatch(getUserProfile(jwt));
       navigate("/home");
-     }
+    }
   }, [dispatch, auth.user, navigate]);
 
   return (
     <ThemeProvider>
       <Routes>
         <Route path="/*" element={auth.user ? <Homepage /> : <Authentication />} />
-        <Route path="/post" />
-
       </Routes>
     </ThemeProvider>
   );
