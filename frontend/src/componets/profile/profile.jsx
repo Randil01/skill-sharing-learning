@@ -9,6 +9,7 @@ import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
+import UploadPost from '../post/UploadPost';
 import ProfileModel from './profileModel';
 import { useDispatch, useSelector} from "react-redux";
 import { findUserById, followUserAction } from '../../Store/Auth/Action';
@@ -34,7 +35,7 @@ const Profile = () => {
 
     useEffect(()=>{
         dispatch(findUserById(id))
-    },[id])
+    },[dispatch, id])
     
     return (
         <div className='min-h-screen'>
@@ -155,7 +156,7 @@ const Profile = () => {
                             </TabList>
                         </Box>
                         <TabPanel value="1" sx={{ px: 3 }}>
-                            {/* Posts content */}
+                            <UploadPost/>
                         </TabPanel>
                     </TabContext>
                 </Box>

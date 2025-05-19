@@ -1,20 +1,23 @@
-// src/main/java/com/example/demo/controller/PostController.java
 package com.example.backend.controller;
 
 import com.example.backend.modal.Post;
 import com.example.backend.service.PostService;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/posts")
-@CrossOrigin(origins = "http://localhost:3000") // React app URL
-@RequiredArgsConstructor
+@RequestMapping("/posts")
+@CrossOrigin(origins = "http://localhost:3000")
 public class PostController {
 
-    private final PostService postService;
+    @Autowired
+    private PostService postService;
 
     @GetMapping
     public List<Post> getAllPosts() {
@@ -36,3 +39,4 @@ public class PostController {
         postService.deletePost(id);
     }
 }
+

@@ -6,35 +6,32 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class PostService {
-
     private final PostRepository postRepository;
-
-    public List<Post> getAllPosts() {
-        return postRepository.findAll();
-    }
-
-    public Optional<Post> getPostById(Long id) {
-        return postRepository.findById(id);
-    }
 
     public Post createPost(Post post) {
         return postRepository.save(post);
     }
 
-    public Post updatePost(Long id, Post updatedPost) {
-        return postRepository.findById(id).map(post -> {
-            post.setContent(updatedPost.getContent());
-            post.setFiles(updatedPost.getFiles());
-            return postRepository.save(post);
-        }).orElseThrow(() -> new RuntimeException("Post not found with id " + id));
+    public List<Post> getAllPosts() {
+        return postRepository.findAll();
     }
 
     public void deletePost(Long id) {
         postRepository.deleteById(id);
+    }
+
+    public Post updatePost(Long id, Post updatedPost) {
+        Post existingPost = postRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Post not found"));
+        
+        existingPost.setContent(updatedPost.getContent());
+        existingPost.setMediaUrl(updatedPost.getMediaUrl());
+        existingPost.setMediaType(updatedPost.getMediaType());
+
+        return postRepository.save(existingPost);
     }
 }
