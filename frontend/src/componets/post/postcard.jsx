@@ -22,6 +22,7 @@ const PostCard = ({
   mediaType,
   username,
   userAvatarUrl,
+  createdAt,
   onEdit = () => {},
   onDelete = () => {},
 }) => {
@@ -32,6 +33,21 @@ const PostCard = ({
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
   const { auth } = useSelector(store => store);
+
+  const formatTimeAgo = (dateString) => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const seconds = Math.floor((now - date) / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    if (seconds < 60) return 'just now';
+    if (minutes < 60) return `${minutes}m`;
+    if (hours < 24) return `${hours}h`;
+    if (days < 7) return `${days}d`;
+    return date.toLocaleDateString();
+  };
 
   const open = Boolean(anchorEl);
 
@@ -130,9 +146,9 @@ const PostCard = ({
             </h2>
             <time
               className="text-xs text-gray-500 dark:text-gray-400"
-              dateTime={new Date().toISOString()}
+              dateTime={createdAt || new Date().toISOString()}
             >
-              @{(username || auth.user?.fullName)?.toLowerCase().split(" ").join("_")} · just now
+              @{(username || auth.user?.fullName)?.toLowerCase().split(" ").join("_")} · {formatTimeAgo(createdAt || new Date())}
             </time>
           </div>
           <IconButton
@@ -252,6 +268,7 @@ PostCard.propTypes = {
   mediaType: PropTypes.oneOf(["image", "video"]),
   username: PropTypes.string,
   userAvatarUrl: PropTypes.string,
+  createdAt: PropTypes.string,
   onEdit: PropTypes.func,
   onDelete: PropTypes.func,
 };
