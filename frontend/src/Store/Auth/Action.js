@@ -15,20 +15,23 @@ import { FIND_USER_BY_ID_FAILURE, FIND_USER_BY_ID_SUCCESS, FOLLOW_USER_FAILURE, 
   DELETE_POST_FAILURE, } from "./ActionType";
 
 
-export const loginUser=(loginData)=>async(dispatch)=>{
+export const loginUser = (loginData) => async (dispatch) => {
     try {
-        const {data} = await axios.post(`${API_BASE_URL}/auth/signin`, loginData);
+        const { data } = await axios.post(`${API_BASE_URL}/auth/signin`, loginData);
+        console.log("Login response:", data);
 
-        console.log("Loged in user",data)
-
-        if(data.jwt) {
-            localStorage.setItem("jwt", data.jwt)
+        if (data.jwt) {
+            localStorage.setItem("jwt", data.jwt);
+            dispatch({ type: LOGIN_USER_SUCCESS, payload: data.jwt });
+            // Get user profile after successful login
+            await dispatch(getUserProfile(data.jwt));
+            return { success: true, payload: data.jwt };
         }
-        dispatch({type: LOGIN_USER_SUCCESS, payload:data.jwt})
-
-    } catch(error) {
-        console.log("error", error)
-        dispatch({type: LOGIN_USER_FAILURE, payload:error.message})
+        return { success: false, payload: null };
+    } catch (error) {
+        console.error("Login error:", error);
+        dispatch({ type: LOGIN_USER_FAILURE, payload: error.message });
+        return { success: false, error: error.message };
     }
 }
 
