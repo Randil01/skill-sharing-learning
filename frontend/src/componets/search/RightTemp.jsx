@@ -6,10 +6,12 @@ import VerifiedIcon from '@mui/icons-material/Verified';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import PeopleIcon from '@mui/icons-material/People';
 import StarIcon from '@mui/icons-material/Star';
+import { useTheme } from '../../config/ThemeContext';
 
 const RightTemp = () => {
     const [openVerificationModal, setOpenVerificationModal] = useState(false);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+    const { darkMode, toggleDarkMode } = useTheme();
 
     const handleOpenVerificationModal = () => setOpenVerificationModal(true);
     const handleCloseVerificationModal = () => setOpenVerificationModal(false);
@@ -48,9 +50,9 @@ const RightTemp = () => {
         <div className='py-5 sticky top-0 h-screen overflow-y-auto dark:bg-gray-900'>
             <div className='bg-white dark:bg-gray-900 sticky top-0 z-10 py-2'>
                 <div className='flex justify-end'>
-                    <Brightness6Icon 
-                        className='cursor-pointer text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white' 
-                    />
+                    <IconButton onClick={toggleDarkMode} className='text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white'>
+                        <Brightness6Icon />
+                    </IconButton>
                 </div>
             </div>
 
@@ -112,10 +114,11 @@ const RightTemp = () => {
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
                     width: 400,
-                    bgcolor:'background.paper',
+                    bgcolor: darkMode ? 'rgb(17, 24, 39)' : 'background.paper',
                     borderRadius: 2,
                     boxShadow: 24,
                     p: 4,
+                    color: darkMode ? 'white' : 'inherit',
                 }}>
                     <div className='flex justify-between items-center mb-4'>
                         <Typography variant="h6" component="h2" className='font-bold dark:text-white'>
@@ -171,7 +174,13 @@ const RightTemp = () => {
                 <Alert 
                     onClose={() => setShowSuccessMessage(false)} 
                     severity="success" 
-                    sx={{ width: '100%' }}
+                    sx={{
+                        bgcolor: darkMode ? 'rgb(17, 24, 39)' : 'white',
+                        color: darkMode ? 'white' : 'inherit',
+                        '& .MuiAlert-icon': {
+                            color: darkMode ? 'white' : 'inherit'
+                        }
+                    }}
                 >
                     Your verification request has been sent to administrators for review and approval.
                 </Alert>

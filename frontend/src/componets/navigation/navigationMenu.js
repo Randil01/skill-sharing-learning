@@ -29,9 +29,8 @@ export const navigationMenue=[
     },
     {
         tittle:"Q&A",
-        dynamicPath: (id) => `/questions/${id}`,
+        path:"/questions",
         icon:<QuestionAnswerIcon/>,
-        
     },
     {
         tittle:"Progress",

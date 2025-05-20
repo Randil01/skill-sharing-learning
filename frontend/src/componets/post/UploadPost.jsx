@@ -144,7 +144,7 @@ const UploadPost = () => {
   };
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-5 dark:bg-gray-900">
       {/* Post Upload Section */}
       <section className="pb-10">
         <div className="flex space-x-5">
@@ -158,7 +158,7 @@ const UploadPost = () => {
                   type="text"
                   name="content"
                   placeholder="What is happening?"
-                  className="border outline-none text-xl bg-transparent w-full"
+                  className="border outline-none text-xl bg-transparent w-full dark:text-white dark:placeholder-gray-400 dark:border-gray-700"
                   {...formik.getFieldProps("content")}
                 />
                 {formik.touched.content && formik.errors.content && (
@@ -173,13 +173,13 @@ const UploadPost = () => {
                     <img
                       src={selectedMediaPreview}
                       alt="Preview"
-                      className="w-48 rounded-md border"
+                      className="w-48 rounded-md border dark:border-gray-700"
                     />
                   ) : (
                     <video
                       src={selectedMediaPreview}
                       controls
-                      className="w-48 rounded-md border"
+                      className="w-48 rounded-md border dark:border-gray-700"
                     />
                   )}
                 </div>
@@ -189,7 +189,7 @@ const UploadPost = () => {
               <div className="flex justify-between items-center mt-5">
                 <div className="flex space-x-5 items-center">
                   <label className="flex items-center space-x-2 rounded-md cursor-pointer">
-                    <ImageIcon className="text-[#1d9bf0]" />
+                    <ImageIcon className="text-[#1d9bf0] dark:text-blue-400" />
                     <input
                       type="file"
                       name="mediaFile"
@@ -198,13 +198,13 @@ const UploadPost = () => {
                       accept="image/*,video/*"
                     />
                   </label>
-                  <FmdGoodIcon className="text-[#1d9bf0]" />
-                  <TagFacesIcon className="text-[#1d9bf0]" />
+                  <FmdGoodIcon className="text-[#1d9bf0] dark:text-blue-400" />
+                  <TagFacesIcon className="text-[#1d9bf0] dark:text-blue-400" />
                 </div>
 
                 <button
                   type="submit"
-                  className="bg-blue-600 text-white rounded-2xl px-5 py-2 hover:bg-blue-700 transition"
+                  className="bg-blue-600 text-white rounded-2xl px-5 py-2 hover:bg-blue-700 transition dark:bg-blue-500 dark:hover:bg-blue-600"
                   disabled={uploadingMedia}
                 >
                   {uploadingMedia ? "Uploading..." : "Post"}
