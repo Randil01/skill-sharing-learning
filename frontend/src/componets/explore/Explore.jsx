@@ -64,7 +64,7 @@ const Explore = () => {
               <h3 className="text-xl font-semibold dark:text-white">{user.fullName}</h3>
               <p className="text-gray-600 dark:text-gray-300">Email: {user.email}</p>
               <p className="text-gray-600 dark:text-gray-300">
-                About: {user.about ? user.about : 'No description'}
+                About: {user.bio ? user.bio : 'No description'}
               </p>
             </div>
           </div>
