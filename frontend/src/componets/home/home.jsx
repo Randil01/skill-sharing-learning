@@ -26,7 +26,7 @@ const Homepage = () => {
             <Route path="/profile/:id" element={<Profile />} />
             <Route path="/explore" element={<Explore />} />
             <Route path="/progress/:id" element={<Progress />} />
-            <Route path="/questions" element={<QnAPage />} />
+            
           </Routes>
         </div>
 
