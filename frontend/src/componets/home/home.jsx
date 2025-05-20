@@ -8,7 +8,7 @@ import { Route, Routes } from 'react-router-dom';
 import Authentication from '../authentication/Authentication';
 import Explore from '../explore/Explore';
 import QnAPage from '../Q&A/Qn&aMain';
-
+import Post from '../post/UploadPost'
 const Homepage = () => {
   return (
     <div className='min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200'>
@@ -26,7 +26,8 @@ const Homepage = () => {
             <Route path="/profile/:id" element={<Profile />} />
             <Route path="/explore" element={<Explore />} />
             <Route path="/progress/:id" element={<Progress />} />
-            
+            <Route path="/questions/:id" element={<QnAPage />} />
+            <Route path="/Post" element={<Post />} />
           </Routes>
         </div>
 

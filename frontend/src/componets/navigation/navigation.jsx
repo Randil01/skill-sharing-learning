@@ -43,7 +43,7 @@ const Navigation = () => {
           {navigationMenue.map((item) => (
             <div
               key={item.tittle}
-              className="cursor-pointer flex space-x-3 items-center dark:text-white"
+              className="cursor-pointer flex space-x-3 items-center dark:text-white "
               onClick={() => {
                 console.log("Clicked on:", item.tittle);
                 const userId = auth.user?.id;
@@ -53,28 +53,10 @@ const Navigation = () => {
               }}
             >
               {React.cloneElement(item.icon, { className: 'dark:text-white' })}
-              <p className="text-xl dark:text-white">{item.tittle}</p>
+              <p className="text-base dark:text-white">{item.tittle}</p>
             </div>
           ))}
         </div>
-
-        <div className="py-10 ml-[-10px]">
-          <Button
-            sx={{
-              width: "200px",
-              borderRadius: "30px",
-              py: "10px",
-              bgcolor: "#1e88e5",
-              '&:hover': {
-                bgcolor: "#1976d2"
-              }
-            }}
-            variant="contained"
-          >
-            Post your idea
-          </Button>
-        </div>
-
         <div className="flex items-center justify-between mt-8">
           <div className="flex items-center space-x-3">
             <Avatar
