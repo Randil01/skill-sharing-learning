@@ -23,7 +23,7 @@ const HomeSection = () => {
   }, []);
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-5 dark:bg-gray-900">
       {/* Upload Post Form */}
       <br></br>
       <UploadPost onPostCreated={fetchPosts} />

@@ -114,10 +114,11 @@ const RightTemp = () => {
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
                     width: 400,
-                    bgcolor:'background.paper',
+                    bgcolor: darkMode ? 'rgb(17, 24, 39)' : 'background.paper',
                     borderRadius: 2,
                     boxShadow: 24,
                     p: 4,
+                    color: darkMode ? 'white' : 'inherit',
                 }}>
                     <div className='flex justify-between items-center mb-4'>
                         <Typography variant="h6" component="h2" className='font-bold dark:text-white'>
@@ -173,7 +174,13 @@ const RightTemp = () => {
                 <Alert 
                     onClose={() => setShowSuccessMessage(false)} 
                     severity="success" 
-                    sx={{ width: '100%' }}
+                    sx={{
+                        bgcolor: darkMode ? 'rgb(17, 24, 39)' : 'white',
+                        color: darkMode ? 'white' : 'inherit',
+                        '& .MuiAlert-icon': {
+                            color: darkMode ? 'white' : 'inherit'
+                        }
+                    }}
                 >
                     Your verification request has been sent to administrators for review and approval.
                 </Alert>

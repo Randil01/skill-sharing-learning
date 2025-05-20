@@ -58,13 +58,13 @@ const AddQuestion = ({ onSubmit, onCancel, initialData }) => {
   };
 
   return (
-    <div className="bg-white shadow p-6 rounded-lg">
-      <h2 className="text-2xl font-bold mb-4">
+    <div className="bg-white dark:bg-gray-800 shadow p-6 rounded-lg">
+      <h2 className="text-2xl font-bold mb-4 dark:text-white">
         {initialData ? 'Edit Question' : 'Ask a Question'}
       </h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="topic" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="topic" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Topic
           </label>
           <input
@@ -72,13 +72,13 @@ const AddQuestion = ({ onSubmit, onCancel, initialData }) => {
             id="topic"
             value={topic}
             onChange={(e) => setTopic(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded focus:border-blue-300 focus:outline-none focus:ring-1 focus:ring-blue-300 "
+            className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded focus:border-blue-300 focus:outline-none focus:ring-1 focus:ring-blue-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
             placeholder="Enter the topic of your question"
             required
           />
         </div>
         <div>
-          <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="title" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Title
           </label>
           <input
@@ -87,12 +87,12 @@ const AddQuestion = ({ onSubmit, onCancel, initialData }) => {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Enter your question title"
-            className="w-full p-2 border border-gray-300 rounded focus:border-blue-300 focus:outline-none focus:ring-1 focus:ring-blue-300"
+            className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded focus:border-blue-300 focus:outline-none focus:ring-1 focus:ring-blue-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
             required
           />
         </div>
         <div>
-          <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Description
           </label>
           <textarea
@@ -100,19 +100,19 @@ const AddQuestion = ({ onSubmit, onCancel, initialData }) => {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Enter your question description"
-            className="w-full p-2 border border-gray-300 rounded focus:border-blue-300 focus:outline-none focus:ring-1 focus:ring-blue-300"
+            className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded focus:border-blue-300 focus:outline-none focus:ring-1 focus:ring-blue-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
             rows="4"
             required
           />
         </div>
         {error && (
-          <div className="text-red-600 text-sm">{error}</div>
+          <div className="text-red-600 dark:text-red-400 text-sm">{error}</div>
         )}
         <div className="flex justify-end space-x-3">
           <button
             type="button"
             onClick={onCancel}
-            className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors duration-200"
+            className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200"
           >
             Cancel
           </button>

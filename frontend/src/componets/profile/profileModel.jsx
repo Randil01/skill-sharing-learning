@@ -9,6 +9,7 @@ import { updateUserProfile } from '../../Store/Auth/Action';
 import { useDispatch } from 'react-redux';
 import { useSelector} from "react-redux";
 import { uplodToCloudnary } from '../Utills/uplodToCloudnary';
+import { useTheme } from '../../config/ThemeContext';
 
 const style = {
   position: 'absolute',
@@ -16,7 +17,6 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 600,
-  bgcolor: 'background.paper',
   border: 'none',
   boxShadow: 24,
   p: 4,
@@ -31,6 +31,7 @@ export default function ProfileModel({open,handleClose}) {
   const [backgroundImage, setBackgroundImage] = React.useState("");
   const [profileImage, setProfileImage] = React.useState("");
   const {auth} = useSelector(store=>store)
+  const { darkMode } = useTheme();
 
 
   const handleSubmit=(values)=>{
@@ -75,7 +76,38 @@ export default function ProfileModel({open,handleClose}) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={{
+          ...style,
+          bgcolor: darkMode ? 'rgb(17, 24, 39)' : 'background.paper',
+          color: darkMode ? 'white' : 'text.primary',
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+              borderColor: darkMode ? 'rgb(75, 85, 99)' : 'rgba(0, 0, 0, 0.23)',
+            },
+            '&:hover fieldset': {
+              borderColor: darkMode ? 'rgb(107, 114, 128)' : 'rgba(0, 0, 0, 0.5)',
+            },
+            '&.Mui-focused fieldset': {
+              borderColor: 'primary.main',
+            },
+          },
+          '& .MuiInputLabel-root': {
+            color: darkMode ? 'rgb(156, 163, 175)' : 'rgba(0, 0, 0, 0.6)',
+          },
+          '& .MuiInputBase-input': {
+            color: darkMode ? 'white' : 'text.primary',
+            backgroundColor: darkMode ? 'rgb(31, 41, 55)' : 'transparent',
+          },
+          '& .MuiIconButton-root': {
+            color: darkMode ? 'rgb(156, 163, 175)' : 'text.primary',
+          },
+          '& .MuiButton-root': {
+            color: 'primary.main',
+          },
+          '& .MuiFormHelperText-root': {
+            color: darkMode ? 'rgb(156, 163, 175)' : 'rgba(0, 0, 0, 0.6)',
+          }
+        }}>
          <form onSubmit={formik.handleSubmit}>
             <div className='flex items-center justify-between'>
                 <div className='flex items-center space-x-3'>
@@ -99,7 +131,6 @@ export default function ProfileModel({open,handleClose}) {
                         onChange={handleImageChnage}
                         />
                     </div>
-
                   </div>
 
                   <div className='w-full transform -translate-y-14 ml-4 h-[6rem]'>
@@ -113,7 +144,6 @@ export default function ProfileModel({open,handleClose}) {
                         name='profilepic'
                         />
                     </div>
-
                   </div>
                 </React.Fragment>
 
@@ -138,7 +168,7 @@ export default function ProfileModel({open,handleClose}) {
                     error={formik.touched.location && Boolean(formik.errors.location)}
                     helperText={formik.touched.location && formik.errors.location}/>
 
-<TextField
+                    <TextField
                     fullWidth
                     multiline
                     rows={4}
@@ -150,21 +180,19 @@ export default function ProfileModel({open,handleClose}) {
                     error={formik.touched.bio && Boolean(formik.errors.bio)}
                     helperText={formik.touched.bio && formik.errors.bio}/>
 
-<TextField
-  fullWidth
-  id="birthday"
-  name="birthday"
-  label="Birthday"
-  type="date"
-  value={formik.values.birthday}
-  onChange={formik.handleChange}
-  error={formik.touched.birthday && Boolean(formik.errors.birthday)}
-  helperText={formik.touched.birthday && formik.errors.birthday}
-  InputLabelProps={{
-    shrink: true, 
-  }}
-/>
-
+                    <TextField
+                    fullWidth
+                    id="birthday"
+                    name="birthday"
+                    label="Birthday"
+                    type="date"
+                    value={formik.values.birthday}
+                    onChange={formik.handleChange}
+                    error={formik.touched.birthday && Boolean(formik.errors.birthday)}
+                    helperText={formik.touched.birthday && formik.errors.birthday}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}/>
                 </div>
             </div>
          </form>

@@ -31,25 +31,25 @@ const Explore = () => {
   }, [query]);
 
   return (
-    <div className="p-4">
-      <h2 className="text-2xl font-semibold mb-4">Explore Users</h2>
+    <div className="p-4 dark:bg-gray-900">
+      <h2 className="text-2xl font-semibold mb-4 dark:text-white">Explore Users</h2>
 
       <input
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search by name..."
-        className="w-full px-4 py-2 border border-gray-300 rounded-md mb-6 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-200"
+        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md mb-6 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-200 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400"
       />
 
       <div className="space-y-4">
         {users.map((user) => (
           <div
             key={user.id}
-            className="flex items-center p-4 border rounded-lg shadow-md bg-white hover:bg-gray-100 transition duration-200 cursor-pointer"
+            className="flex items-center p-4 border rounded-lg shadow-md bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-200 cursor-pointer dark:border-gray-700"
             onClick={() => navigate(`/profile/${user.id}`)}
           >
-            <div className="text-gray-500 text-5xl mr-6">
+            <div className="text-gray-500 dark:text-gray-400 text-5xl mr-6">
             {user.profilepic ? (
               <img
                src={user.profilepic}
@@ -61,9 +61,9 @@ const Explore = () => {
             )}
             </div>
             <div>
-              <h3 className="text-xl font-semibold">{user.fullName}</h3>
-              <p className="text-gray-600">Email: {user.email}</p>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-semibold dark:text-white">{user.fullName}</h3>
+              <p className="text-gray-600 dark:text-gray-300">Email: {user.email}</p>
+              <p className="text-gray-600 dark:text-gray-300">
                 About: {user.about ? user.about : 'No description'}
               </p>
             </div>
