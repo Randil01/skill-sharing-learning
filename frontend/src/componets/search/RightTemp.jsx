@@ -24,8 +24,6 @@ const RightTemp = () => {
         { topic: "Web Development", posts: "2.5k", category: "Technology" },
         { topic: "Data Science", posts: "1.8k", category: "Technology" },
         { topic: "UI/UX Design", posts: "1.2k", category: "Design" },
-        { topic: "Machine Learning", posts: "3.1k", category: "Technology" },
-        { topic: "Digital Marketing", posts: "950", category: "Marketing" }
     ];
 
     const verificationBenefits = [
@@ -47,7 +45,8 @@ const RightTemp = () => {
     ];
 
     return (
-        <div className='py-5 sticky top-0 h-screen overflow-y-auto dark:bg-gray-900'>
+        <div className='sticky top-0'>
+        <div className='py-5 dark:bg-gray-900'>
             <div className='bg-white dark:bg-gray-900 sticky top-0 z-10 py-2'>
                 <div className='flex justify-end'>
                     <IconButton onClick={toggleDarkMode} className='text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white'>
@@ -56,7 +55,7 @@ const RightTemp = () => {
                 </div>
             </div>
 
-            <section className='my-5 bg-gray-50 dark:bg-gray-800 rounded-xl p-4'>
+            <section className='my-5 bg-gray-50 dark:bg-gray-800 rounded-xl p-4 mt-0'>
                 <h1 className='text-xl font-bold text-center dark:text-white'>Get Verified</h1>
                 <h1 className='font-bold my-2 text-gray-600 dark:text-gray-300 text-center'>Stand out in the community</h1>
                 
@@ -101,8 +100,7 @@ const RightTemp = () => {
                     ))}
                 </div>
             </section>
-
-            {/* Verification Modal */}
+            
             <Modal
                 open={openVerificationModal}
                 onClose={handleCloseVerificationModal}
@@ -163,8 +161,6 @@ const RightTemp = () => {
                     </div>
                 </Box>
             </Modal>
-
-            {/* Success Message Snackbar */}
             <Snackbar 
                 open={showSuccessMessage} 
                 autoHideDuration={6000} 
@@ -185,6 +181,7 @@ const RightTemp = () => {
                     Your verification request has been sent to administrators for review and approval.
                 </Alert>
             </Snackbar>
+        </div>
         </div>
     )
 }
