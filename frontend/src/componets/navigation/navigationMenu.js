@@ -31,7 +31,6 @@ export const navigationMenue=[
         tittle:"Q&A",
         dynamicPath: (id) => `/questions/${id}`,
         icon:<QuestionAnswerIcon/>,
-        
     },
     {
         tittle:"Progress",
@@ -41,7 +40,7 @@ export const navigationMenue=[
     },
     {
         tittle:"Profile",
-        icon:<AccountCircleIcon/>,
+        icon:<AccountCircleIcon />,
         dynamicPath: (id) => `/profile/${id}`,
         
     }

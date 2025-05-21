@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserProfile } from './Store/Auth/Action';
 import Homepage from './componets/home/home';
 import Authentication from './componets/authentication/Authentication';
+import { ThemeProvider } from './config/ThemeContext';
+import './App.css';
 
 function App() {
   const dispatch = useDispatch();
@@ -29,15 +31,15 @@ function App() {
     if (jwt && !auth.user) {
       dispatch(getUserProfile(jwt));
       navigate("/home");
-     }
+    }
   }, [dispatch, auth.user, navigate]);
 
   return (
-    <div className="App">
+    <ThemeProvider>
       <Routes>
         <Route path="/*" element={auth.user ? <Homepage /> : <Authentication />} />
       </Routes>
-    </div>
+    </ThemeProvider>
   );
 }
 

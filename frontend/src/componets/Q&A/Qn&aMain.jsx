@@ -68,9 +68,6 @@ const QnAPage = () => {
         return;
       }
 
-      // Debug token
-      console.log('JWT Token:', jwt);
-
       let userEmail;
       try {
         const decoded = jwtDecode(jwt);
@@ -245,63 +242,42 @@ const QnAPage = () => {
   ];
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-8 text-center">Q&A Section</h1>
+    <div className="container mx-auto px-4 py-8 dark:bg-gray-900">
+      <h1 className="text-2xl font-bold mb-8 text-center dark:text-white">Q&A Section</h1>
 
       {/* General Questions */}
       <div className="mb-8">
-        <h3 className="text-xl font-semibold mb-3">Frequntily Asked Questions</h3>
+        <h3 className="text-xl font-semibold mb-3 dark:text-white">Frequently Asked Questions</h3>
         {generalQuestions.map((q) => (
           <QuestionCard key={q.id} question={q} isGeneral />
         ))}
       </div>
 
-      {/* Notification */}
-      {showNotification && (
-        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
-          <div className={`${
-            notificationType === 'success' ? 'bg-green-500' : 'bg-red-500'
-          } text-white px-6 py-3 rounded-lg shadow-lg flex items-center space-x-2 animate-fade-in`}>
-            {notificationType === 'success' ? <CheckCircleIcon /> : <InfoIcon />}
-            <span>{notificationMessage}</span>
-          </div>
-        </div>
-      )}
-
       {!showForm ? (
         <div>
-      {/* Search and Add */}
           <div className="flex justify-between items-center mb-8">
             <div className="flex-1 mr-4">
-        <SearchBar query={query} setQuery={setQuery} />
+              <SearchBar query={query} setQuery={setQuery} />
             </div>
-        <button
+            <button
               onClick={handleAskQuestion}
-              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded shadow-md hover:shadow-lg transition duration-200"
-        >
+              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded shadow-md hover:shadow-lg transition duration-200 dark:bg-blue-500 dark:hover:bg-blue-600"
+            >
               <span>Ask Question</span>
-        </button>
-      </div>
+            </button>
+          </div>
 
-      {/* User-Created Questions */}
-          <div className="space-y-6">
-            <h3 className="text-xl font-semibold mb-4">Community Questions</h3>
-        {filteredQuestions.length > 0 ? (
-          filteredQuestions.map((q) => (
-                <QuestionCard 
-                  key={q.id} 
-                  question={q}
-                  onEdit={() => handleEdit(q)}
-                  onDelete={() => handleDelete(q.id)}
-                />
-          ))
-        ) : (
-              <div className="text-center py-8">
-                <p className="text-gray-500 text-lg">No questions found.</p>
-                <p className="text-gray-400 mt-2">Be the first to ask a question!</p>
-              </div>
-        )}
-      </div>
+          {/* Questions List */}
+          <div className="space-y-4">
+            {filteredQuestions.map((question) => (
+              <QuestionCard
+                key={question.id}
+                question={question}
+                onEdit={() => handleEdit(question)}
+                onDelete={() => handleDelete(question.id)}
+              />
+            ))}
+          </div>
         </div>
       ) : (
         <QuestionForm

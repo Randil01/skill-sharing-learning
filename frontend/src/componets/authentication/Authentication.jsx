@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
+import AuthModel from './AuthModel';
 import { Button } from "@mui/material";
 import { GoogleLogin } from "@react-oauth/google";
-import AuthModel from "./AuthModel";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../Store/Auth/Action";

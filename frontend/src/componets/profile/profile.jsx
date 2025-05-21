@@ -9,6 +9,7 @@ import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
+import UploadPost from '../post/UploadPost';
 import ProfileModel from './profileModel';
 import { useDispatch, useSelector} from "react-redux";
 import { findUserById, followUserAction } from '../../Store/Auth/Action';
@@ -34,22 +35,22 @@ const Profile = () => {
 
     useEffect(()=>{
         dispatch(findUserById(id))
-    },[id])
+    },[dispatch, id])
     
     return (
-        <div className='min-h-screen'>
-            <section className='sticky top-0 z-50 bg-white bg-opacity-95 backdrop-blur-sm border-b border-gray-100'>
+        <div className='min-h-screen dark:bg-gray-900'>
+            <section className='sticky top-0 z-50 bg-white dark:bg-gray-900 bg-opacity-95 backdrop-blur-sm border-b border-gray-100 dark:border-gray-800'>
                 <div className='flex items-center px-4 py-3 space-x-4'>
-                    <KeyboardBackspaceIcon className='cursor-pointer' onClick={handleBack}/>
+                    <KeyboardBackspaceIcon className='cursor-pointer dark:text-white' onClick={handleBack}/>
                     <div>
-                        <h1 className='text-xl font-bold'>{auth.findUser?.fullName}</h1>
-                        <p className='text-sm text-gray-500'>Posts</p>
+                        <h1 className='text-xl font-bold dark:text-white'>{auth.findUser?.fullName}</h1>
+                        <p className='text-sm text-gray-500 dark:text-gray-400'>Posts</p>
                     </div>
                 </div>
             </section>
 
             <section>
-                <div className='h-[200px] relative bg-gray-100'>
+                <div className='h-[200px] relative bg-gray-100 dark:bg-gray-800'>
                     <img 
                         className='w-full h-full object-cover'
                         src={auth.findUser?.backgroundImage}
@@ -61,7 +62,7 @@ const Profile = () => {
             <section className='px-6'>
                 <div className='flex justify-between items-start relative'>
                     <Avatar 
-                        className='transform -translate-y-1/2 border-4 border-white'
+                        className='transform -translate-y-1/2 border-4 border-white dark:border-gray-800'
                         alt='Test name' 
                         src={auth.findUser?.profilepic}
                         sx={{width:"120px", height:"120px"}}
@@ -73,6 +74,10 @@ const Profile = () => {
                             sx={{
                                 borderRadius: "20px",
                                 marginTop: 2,
+                                bgcolor: "#1e88e5",
+                                '&:hover': {
+                                    bgcolor: "#1976d2"
+                                }
                             }}
                             onClick={handleOpenProfile}
                         >
@@ -83,7 +88,11 @@ const Profile = () => {
                             variant='contained' 
                             sx={{
                                 borderRadius: "20px",
-                                marginTop: 2, 
+                                marginTop: 2,
+                                bgcolor: "#1e88e5",
+                                '&:hover': {
+                                    bgcolor: "#1976d2"
+                                }
                             }}
                             onClick={handleflollowUser}
                         >
@@ -93,21 +102,20 @@ const Profile = () => {
                     </div>
                 </div>
                 <div>
-
-                <div className='flex ietms-center mt-[-40px]'>
-                    <h1 className='font-bold text-xl'>{auth.findUser?.fullName}</h1>
-                </div>
-                <h2 className='text-gray-500 text-left'>{auth.findUser?.fullName.split(" ").join("_").toLowerCase()}</h2>
+                    <div className='flex ietms-center mt-[-40px]'>
+                        <h1 className='font-bold text-xl dark:text-white'>{auth.findUser?.fullName}</h1>
+                    </div>
+                    <h2 className='text-gray-500 dark:text-gray-400 text-left'>{auth.findUser?.fullName.split(" ").join("_").toLowerCase()}</h2>
                 </div>
                 <div className='mt-4 space-y-4'>
-                <p className="text-left">{auth.findUser?.bio}</p>
+                    <p className="text-left dark:text-white">{auth.findUser?.bio}</p>
 
                     <div className='flex space-x-6'>
-                        <div className='flex items-center text-gray-500 space-x-1'>
+                        <div className='flex items-center text-gray-500 dark:text-gray-400 space-x-1'>
                             <CakeIcon fontSize="small"/>
                             <span>{auth.findUser?.birthday}</span>
                         </div>
-                        <div className='flex items-center text-gray-500 space-x-1'>
+                        <div className='flex items-center text-gray-500 dark:text-gray-400 space-x-1'>
                             <LocationOnIcon fontSize="small"/>
                             <span>{auth.findUser?.location}</span>
                         </div>
@@ -115,18 +123,18 @@ const Profile = () => {
 
                     <div className='flex space-x-6'>
                         <div className='flex items-center space-x-1'>
-                            <span className='font-semibold'>{auth.findUser?.followings?.length}</span>
-                            <span className='text-gray-500'>Following</span>
+                            <span className='font-semibold dark:text-white'>{auth.findUser?.followings?.length}</span>
+                            <span className='text-gray-500 dark:text-gray-400'>Following</span>
                         </div>
                         <div className='flex items-center space-x-1'>
-                            <span className='font-semibold'>{auth.findUser?.followers?.length}</span>
-                            <span className='text-gray-500'>Followers</span>
+                            <span className='font-semibold dark:text-white'>{auth.findUser?.followers?.length}</span>
+                            <span className='text-gray-500 dark:text-gray-400'>Followers</span>
                         </div>
                     </div>
                 </div>
             </section>
       
-            <section className='mt-4 border-b border-gray-100'>
+            <section className='mt-4 border-b border-gray-100 dark:border-gray-800'>
                 <Box sx={{ width: '100%' }}>
                     <TabContext value={tabValue}>
                         <Box>
@@ -142,6 +150,12 @@ const Profile = () => {
                                         color: 'rgb(83, 100, 113)',
                                         '&.Mui-selected': {
                                             color: 'rgb(15, 20, 25)',
+                                        },
+                                        '@media (prefers-color-scheme: dark)': {
+                                            color: 'rgb(156, 163, 175)',
+                                            '&.Mui-selected': {
+                                                color: 'rgb(255, 255, 255)',
+                                            }
                                         }
                                     },
                                     '& .MuiTabs-indicator': {
@@ -155,7 +169,7 @@ const Profile = () => {
                             </TabList>
                         </Box>
                         <TabPanel value="1" sx={{ px: 3 }}>
-                            {/* Posts content */}
+                            <UploadPost/>
                         </TabPanel>
                     </TabContext>
                 </Box>

@@ -151,7 +151,7 @@ const QuestionCard = ({ question, isGeneral = false, onEdit, onDelete }) => {
   const profilePic = userInfo?.profilepic;
 
   return (
-    <div className="bg-white shadow p-4 rounded mb-4 relative">
+    <div className="bg-white dark:bg-gray-800 shadow p-4 rounded mb-4 relative">
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center">
           {profilePic ? (
@@ -161,11 +161,11 @@ const QuestionCard = ({ question, isGeneral = false, onEdit, onDelete }) => {
               className="w-10 h-10 rounded-full mr-3 object-cover"
             />
           ) : (
-            <FaUserCircle className="text-3xl text-gray-500 mr-3" />
+            <FaUserCircle className="text-3xl text-gray-500 dark:text-gray-400 mr-3" />
           )}
           <div>
-            <p className="font-semibold">{displayName}</p>
-            <p className="text-sm text-gray-500">
+            <p className="font-semibold dark:text-white">{displayName}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
               {new Date(question.createdAt).toLocaleString()}
             </p>
           </div>
@@ -174,21 +174,21 @@ const QuestionCard = ({ question, isGeneral = false, onEdit, onDelete }) => {
           <div className="relative">
             <button
               onClick={handleMenuClick}
-              className="p-1 hover:bg-gray-100 rounded-full transition-colors duration-200"
+              className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors duration-200"
             >
-              <MoreVertIcon className="text-gray-500" />
+              <MoreVertIcon className="text-gray-500 dark:text-gray-400" />
             </button>
             {showMenu && (
-              <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-10">
+              <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 z-10">
                 <button
                   onClick={handleEdit}
-                  className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+                  className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
                 >
                   Edit Question
                 </button>
                 <button
                   onClick={handleDelete}
-                  className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 transition-colors duration-200"
+                  className="w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
                 >
                   Delete Question
                 </button>
@@ -197,12 +197,12 @@ const QuestionCard = ({ question, isGeneral = false, onEdit, onDelete }) => {
           </div>
         )}
       </div>
-      <h3 className="text-xl font-bold">{question.title}</h3>
-      <p className="text-gray-700">{question.description}</p>
+      <h3 className="text-xl font-bold dark:text-white">{question.title}</h3>
+      <p className="text-gray-700 dark:text-gray-300">{question.description}</p>
 
       {!isGeneral && (
-        <div className="mt-3">
-          <p className="font-semibold mb-2">Answers ({answers.length}):</p>
+        <div className="mt-3 dark:bg-gray-800">
+          <p className="font-semibold mb-2 dark:text-white">Answers ({answers.length}):</p>
           {answers.length > 0 ? (
             answers.map((a) => {
               const answerUser = answerUserInfo[a.id];
@@ -210,7 +210,7 @@ const QuestionCard = ({ question, isGeneral = false, onEdit, onDelete }) => {
               const answerProfilePic = answerUser?.profilepic;
               
               return (
-                <div key={a.id} className="pl-4 border-l mb-3">
+                <div key={a.id} className="pl-4 border-l border-gray-200 dark:border-gray-700 mb-3">
                   <div className="flex items-center mb-1">
                     {answerProfilePic ? (
                       <img
@@ -219,22 +219,24 @@ const QuestionCard = ({ question, isGeneral = false, onEdit, onDelete }) => {
                         className="w-8 h-8 rounded-full mr-2 object-cover"
                       />
                     ) : (
-                      <FaUserCircle className="text-xl text-gray-500 mr-2" />
+                      <FaUserCircle className="text-xl text-gray-500 dark:text-gray-400 mr-2" />
                     )}
-                    <span className="text-sm font-medium">{answerDisplayName}</span>
+                    <span className="text-sm font-medium dark:text-white">{answerDisplayName}</span>
                   </div>
-                  <p className="text-sm text-gray-700">{a.content}</p>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-sm text-gray-700 dark:text-gray-300">{a.content}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                     {new Date(a.createdAt).toLocaleString()}
                   </p>
                 </div>
               );
             })
           ) : (
-            <p className="text-sm text-gray-400">No answers yet. Be the first to answer!</p>
+            <p className="text-sm text-gray-400 dark:text-gray-500">No answers yet. Be the first to answer!</p>
           )}
           
-          <AddAnswer questionId={question.id} onAnswerAdded={handleAnswerAdded} />
+          <div className="dark:bg-gray-800">
+            <AddAnswer questionId={question.id} onAnswerAdded={handleAnswerAdded} />
+          </div>
         </div>
       )}
     </div>
