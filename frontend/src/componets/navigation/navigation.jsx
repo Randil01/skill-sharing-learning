@@ -29,7 +29,7 @@ const Navigation = () => {
   }
 
   return (
-    <div className="h-full">
+    <div className="h-full sticky top-0 h-screen">
       <div>
         <div className="py-5">
           <img

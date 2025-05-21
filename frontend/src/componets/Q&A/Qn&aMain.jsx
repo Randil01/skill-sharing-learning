@@ -68,9 +68,6 @@ const QnAPage = () => {
         return;
       }
 
-      // Debug token
-      console.log('JWT Token:', jwt);
-
       let userEmail;
       try {
         const decoded = jwtDecode(jwt);
@@ -256,21 +253,8 @@ const QnAPage = () => {
         ))}
       </div>
 
-      {/* Notification */}
-      {showNotification && (
-        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
-          <div className={`${
-            notificationType === 'success' ? 'bg-green-500' : 'bg-red-500'
-          } text-white px-6 py-3 rounded-lg shadow-lg flex items-center space-x-2 animate-fade-in`}>
-            {notificationType === 'success' ? <CheckCircleIcon /> : <InfoIcon />}
-            <span>{notificationMessage}</span>
-          </div>
-        </div>
-      )}
-
       {!showForm ? (
         <div>
-          {/* Search and Add */}
           <div className="flex justify-between items-center mb-8">
             <div className="flex-1 mr-4">
               <SearchBar query={query} setQuery={setQuery} />
