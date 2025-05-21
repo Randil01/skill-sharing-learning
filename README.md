@@ -67,8 +67,7 @@ npm start
 
 ```bash
 cd backend
-create application.propertie file in resourcse/application.propertie
-add port,database configurations
+create application.propertie file in resourcse/application.properties
 ./mvnw spring-boot:run
 ```
 
@@ -112,10 +111,10 @@ This project is licensed under the MIT License.
 
 ## 👨‍💻 Authors
 
--Thenula Randila(thenularandila2002@gmial.com)
--Duvini Dulwanaya(duvinidulwanya@gmail.com)
--Vishwa Udantha(vishwaudantha@gmail.com)
--Rusith Supulsara(rusithsupulsara@gmail.com)
+- Thenula Randila(thenularandila2002@gmial.com)
+- Duvini Dulwanaya(duvinidulwanya@gmail.com)
+- Vishwa Udantha(vishwaudantha@gmail.com)
+- Rusith Supulsara(rusithsupulsara@gmail.com)
 
 
 ---
