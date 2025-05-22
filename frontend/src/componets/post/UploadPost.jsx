@@ -274,19 +274,19 @@ const UploadPost = () => {
         </div>
       </section>
 
-      {/* Posts List */}
+      {/* Posts Display Section */}
       <section className="space-y-4">
-        <br></br>
         {posts.map((post) => (
           <PostCard
             key={post.id}
             postId={post.id}
             content={post.content}
-            mediaUrl={post.imageUrl || post.mediaUrl}
+            mediaUrl={post.mediaUrl}
             mediaType={post.mediaType}
-            createdAt={post.createdAt}
-            onEdit={() => {}}
-            onDelete={() => {}}
+            username={auth.user?.fullName}
+            userAvatarUrl={auth.user?.profilepic}
+            onEdit={() => handleEdit(post.id)}
+            onDelete={() => handleDelete(post.id)}
           />
         ))}
       </section>
